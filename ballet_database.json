@@ -1,0 +1,1100 @@
+{
+  "version": "1.1",
+  "global_rules": {
+    "pelvic_neutral": {
+      "id": "global_pelvic_neutral",
+      "applies_to": "all_exercises",
+      "description_pt": "Pelve neutra em todos os exercícios. Feche o zíper — cóccix aponta para baixo, abdômen ativo.",
+      "description_en": "Neutral pelvis in all exercises. Zip up — tailbone points down, abdomen active.",
+      "threshold": { "max_anterior_tilt_degrees": 5, "max_posterior_tilt_degrees": 5 },
+      "severity": "major"
+    },
+    "head_alignment": {
+      "id": "global_head_alignment",
+      "applies_to": "all_exercises",
+      "description_pt": "Cabeça levemente elevada — olhar ao horizonte, não para o chão.",
+      "description_en": "Head slightly lifted — gaze to the horizon, not to the floor.",
+      "threshold": { "max_forward_tilt_degrees": 15 },
+      "severity": "warning"
+    },
+    "rib_shoulder_opposition": {
+      "id": "global_rib_shoulder",
+      "applies_to": "all_exercises",
+      "description_pt": "Costelas fechadas em oposição aos ombros — não abra o peito excessivamente.",
+      "description_en": "Ribs closed in opposition to shoulders — do not over-open the chest.",
+      "severity": "warning"
+    }
+  },
+  "landmark_map": {
+    "note": "MediaPipe Pose landmark IDs used throughout metrics blocks",
+    "nose": 0,
+    "left_shoulder": 11, "right_shoulder": 12,
+    "left_elbow": 13,    "right_elbow": 14,
+    "left_wrist": 15,    "right_wrist": 16,
+    "left_hip": 23,      "right_hip": 24,
+    "left_knee": 25,     "right_knee": 26,
+    "left_ankle": 27,    "right_ankle": 28,
+    "left_heel": 29,     "right_heel": 30,
+    "left_toe": 31,      "right_toe": 32
+  },
+  "terms": [
+    {
+      "id": "plie",
+      "term_fr": "Plié",
+      "term_pt": "Plié",
+      "definition_en": "A bending of the knees. Demi-plié: knees bend while heels remain on the floor. Grand plié: a full bend where the body descends as far as possible.",
+      "definition_pt": "Dobramento dos joelhos. Demi-plié: joelhos dobram com calcanhares no chão. Grand plié: dobramento completo onde o corpo desce o máximo possível.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28],
+        "secondary": [11, 12, 29, 30, 31, 32],
+        "camera_angle": "frontal"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Standing position, weight centered" },
+        { "id": 2, "name": "Descent", "description": "Controlled bend of knees outward over toes" },
+        { "id": 3, "name": "Bottom", "description": "Deepest point of the plié" },
+        { "id": 4, "name": "Ascent", "description": "Controlled return to standing with resistance" },
+        { "id": 5, "name": "Finish", "description": "Return to preparation position" }
+      ],
+      "metrics": [
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 60 },
+          "units": "degrees",
+          "phases": [2, 3, 4],
+          "note": "Phase-dependent: ~170° standing, ~90° demi bottom, ≥60° grand bottom"
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 60 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 3 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4, 5]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 8 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4, 5]
+        },
+        {
+          "name": "left_heel_rise_pct",
+          "landmarks": [29, 27],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 3 },
+          "units": "percent",
+          "phases": [2],
+          "note": "Must stay grounded in demi; may rise only at deepest point of grand plié"
+        },
+        {
+          "name": "right_heel_rise_pct",
+          "landmarks": [30, 28],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 3 },
+          "units": "percent",
+          "phases": [2]
+        },
+        {
+          "name": "left_knee_toe_offset_norm",
+          "landmarks": [25, 31],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.05 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "right_knee_toe_offset_norm",
+          "landmarks": [26, 32],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.05 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "anterior_tilt_deg",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "horizontal_midpoint_deviation",
+          "correct_range": { "max": 5 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4, 5]
+        }
+      ],
+      "correct_values": {
+        "knee_over_toe_alignment": { "max_offset_normalized": 0.05, "description": "Knee tracks directly over 2nd-3rd toe" },
+        "heel_contact_demi": { "max_rise_pct": 3, "description": "Heels stay on floor during demi-plié" },
+        "trunk_lean": { "max_forward_lean_degrees": 8, "description": "Minimal forward trunk lean" },
+        "hip_level": { "max_height_diff_pct": 3, "description": "Hips remain level throughout" },
+        "pelvic_tilt": { "max_anterior_tilt_degrees": 5, "description": "Neutral pelvis throughout" },
+        "velocity_consistency": { "max_cv": 0.08, "description": "Smooth, consistent descent and ascent" },
+        "bottom_pause": { "max_stationary_frames": 2, "description": "No pause at the bottom" }
+      },
+      "correction_triggers": [
+        {
+          "id": "plie_001", "severity": "major",
+          "condition": "knee_collapsing_inward",
+          "threshold": "knee_toe_offset > 0.06",
+          "cue_pt": "Joelhos caindo para dentro. Rode os joelhos sobre o 2º e 3º dedos — empurre-os para fora ativamente.",
+          "cue_en": "Knees falling inward. Rotate the knees over the 2nd and 3rd toes — actively push them outward."
+        },
+        {
+          "id": "plie_002", "severity": "major",
+          "condition": "anterior_pelvic_tilt",
+          "threshold": "anterior_tilt_deg > 5",
+          "cue_pt": "Mantenha a pelve neutra — feche o zíper, cóccix aponta para baixo, abdômen ativo.",
+          "cue_en": "Keep the pelvis neutral — zip up, tailbone points down, abdomen active."
+        },
+        {
+          "id": "plie_003", "severity": "major",
+          "condition": "heels_rising_demi",
+          "threshold": "heel_rise_pct > 3 during descent",
+          "cue_pt": "Calcanhares subindo no demi-plié. Mantenha os calcanhares no chão durante toda a descida.",
+          "cue_en": "Heels rising in demi-plié. Keep heels grounded throughout the descent."
+        },
+        {
+          "id": "plie_005", "severity": "major",
+          "condition": "heels_rising_too_early_grand",
+          "threshold": "heel_rise_pct > 3 at bottom phase",
+          "cue_pt": "Calcanhares subindo cedo no grand plié. Permita que subam somente no ponto mais fundo.",
+          "cue_en": "Heels rising too early in grand plié. Allow them to lift only at the deepest point."
+        },
+        {
+          "id": "plie_006", "severity": "major",
+          "condition": "pause_at_bottom",
+          "threshold": "stationary_frames >= 2 at bottom",
+          "cue_pt": "Pausa no fundo do plié. O plié deve ser contínuo — sem momento de parada na transição.",
+          "cue_en": "Pause at the bottom of the plié. The plié should be continuous — no stopping at the transition."
+        },
+        {
+          "id": "plie_007", "severity": "warning",
+          "condition": "non_fluid_velocity",
+          "threshold": "velocity_cv < 0.08",
+          "cue_pt": "Plié não fluido — velocidade irregular. Desça e suba com resistência constante.",
+          "cue_en": "Non-fluid plié — irregular velocity. Descend and ascend with constant resistance."
+        },
+        {
+          "id": "plie_008", "severity": "warning",
+          "condition": "trunk_excessive_forward_lean",
+          "threshold": "trunk_lean_angle > 10",
+          "cue_pt": "Tronco muito inclinado para frente no plié. Mantenha o eixo longo — não compense a profundidade inclinando.",
+          "cue_en": "Trunk leaning too far forward in plié. Keep the axis long — do not compensate depth by leaning."
+        },
+        {
+          "id": "plie_009", "severity": "major",
+          "condition": "hip_lateral_shift",
+          "threshold": "hip_height_diff_pct > 3",
+          "cue_pt": "Quadril deslocando lateralmente. Mantenha os quadris nivelados — peso centralizado em ambos os pés.",
+          "cue_en": "Hip shifting laterally. Keep hips level — weight centered on both feet."
+        },
+        {
+          "id": "plie_011", "severity": "major",
+          "condition": "sitting_into_joint",
+          "threshold": "knee_angle < 60 and trunk_lean > 8 at bottom",
+          "cue_pt": "Sentando na articulação no fundo do plié. Mantenha o tronco ativo e ereto — não afunde no quadril.",
+          "cue_en": "Sitting into the joint at the bottom. Keep the trunk active and upright — do not sink into the hip."
+        }
+      ]
+    },
+    {
+      "id": "battement_tendu",
+      "term_fr": "Battement Tendu",
+      "term_pt": "Battement Tendu",
+      "definition_en": "A stretched beating movement. The working leg extends along the floor in a specific direction until only the tip of the toes remains in contact, creating maximum stretch.",
+      "definition_pt": "Movimento batido esticado. A perna de trabalho se estende pelo chão em uma direção específica até que apenas a ponta dos dedos permaneça em contato, criando máximo alongamento.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28, 31, 32],
+        "secondary": [11, 12],
+        "camera_angle": "frontal_or_lateral"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "5th or 1st position" },
+        { "id": 2, "name": "Brush out", "description": "Foot brushes along floor outward" },
+        { "id": 3, "name": "Full extension", "description": "Leg fully extended, only toe tip on floor" },
+        { "id": 4, "name": "Return", "description": "Foot brushes back to position" }
+      ],
+      "metrics": [
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4],
+          "note": "Supporting knee must be fully extended throughout"
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 2 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 5 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "left_knee_toe_offset_norm",
+          "landmarks": [25, 31],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.05 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3, 4],
+          "note": "Proxy for foot articulation direction"
+        },
+        {
+          "name": "right_knee_toe_offset_norm",
+          "landmarks": [26, 32],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.05 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3, 4]
+        }
+      ],
+      "correct_values": {
+        "supporting_knee": { "must_be_straight": true, "max_bend_degrees": 5 },
+        "hip_stability": { "max_height_diff_pct": 2, "no_hip_hike": true },
+        "foot_articulation": { "heel_leads_outward": true, "toe_leads_inward": true },
+        "trunk_stability": { "max_lean_degrees": 5 },
+        "hip_rotation": { "max_rotation_deg": 12 },
+        "weight_center": { "max_anterior_tilt_deg": 8 },
+        "arm_position": { "max_wrist_drop_pct": 10 }
+      },
+      "correction_triggers": [
+        {
+          "id": "tendu_001", "severity": "major",
+          "condition": "supporting_knee_bent",
+          "cue_pt": "Joelho de apoio dobrado. Estique completamente o joelho de suporte — empurre o chão para baixo.",
+          "cue_en": "Supporting knee bending. Fully straighten the supporting knee — push the floor down."
+        },
+        {
+          "id": "tendu_002", "severity": "major",
+          "condition": "hip_hiking",
+          "cue_pt": "Quadril subindo na direção da perna de trabalho. Mantenha ambos os quadris nivelados — estabilize o centro.",
+          "cue_en": "Hip hiking toward working leg. Keep both hips level — stabilize the center."
+        },
+        {
+          "id": "tendu_003", "severity": "warning",
+          "condition": "incorrect_foot_lead",
+          "cue_pt": "Articulação do pé incorreta. Para fora: calcanhar lidera. Para dentro: dedos lideram.",
+          "cue_en": "Incorrect foot articulation. Going out: heel leads. Coming in: toes lead."
+        },
+        {
+          "id": "tendu_004", "severity": "warning",
+          "condition": "trunk_instability",
+          "cue_pt": "Tronco instável durante o tendu. Mantenha o eixo central fixo — o movimento vem apenas da perna.",
+          "cue_en": "Trunk instability during tendu. Keep the central axis fixed — movement comes from the leg only."
+        },
+        { "id": "tendu_005", "severity": "major", "condition": "hip_rotating", "cue_pt": "Quadril a rodar no tendu. Mantém os quadris quadrados à frente.", "cue_en": "Hip rotating during tendu. Keep hips square to the front." },
+        { "id": "tendu_006", "severity": "warning", "condition": "weight_shifting_forward", "cue_pt": "Peso a transferir para a frente. Mantém o centro sobre a perna de apoio.", "cue_en": "Weight shifting forward. Keep centre over the supporting leg." },
+        { "id": "tendu_007", "severity": "warning", "condition": "wrist_dropping", "cue_pt": "Pulso a cair no tendu. Mantém os braços na posição.", "cue_en": "Wrist dropping in tendu. Maintain arm position." }
+      ]
+    },
+    {
+      "id": "releve",
+      "term_fr": "Relevé",
+      "term_pt": "Relevé",
+      "definition_en": "A rise onto the tips of the toes (demi-pointe or full pointe). Both legs remain straight and together as the body rises and lowers with control.",
+      "definition_pt": "Subida nas pontas dos pés (demi-pointe ou pointe). Ambas as pernas permanecem esticadas e juntas enquanto o corpo sobe e desce com controle.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28, 29, 30],
+        "secondary": [11, 12, 31, 32],
+        "camera_angle": "lateral"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Starting position, weight centered" },
+        { "id": 2, "name": "Rising", "description": "Heels lift as body ascends to demi-pointe" },
+        { "id": 3, "name": "Full relevé", "description": "Highest point — maximum heel elevation, knees straight" },
+        { "id": 4, "name": "Descent", "description": "Controlled lowering back to flat" }
+      ],
+      "metrics": [
+        {
+          "name": "left_heel_rise_pct",
+          "landmarks": [29, 27],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "min": 10 },
+          "units": "percent",
+          "phases": [3],
+          "note": "At full relevé heel should rise ≥10% of frame height"
+        },
+        {
+          "name": "right_heel_rise_pct",
+          "landmarks": [30, 28],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "min": 10 },
+          "units": "percent",
+          "phases": [3]
+        },
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 170 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 170 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 2 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 5 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        }
+      ],
+      "correct_values": {
+        "heel_rise": { "min_rise_pct": 10, "description": "Both heels rise to maximum elevation on demi-pointe" },
+        "heel_symmetry": { "max_asymmetry_pct": 5, "description": "Both heels rise to equal height" },
+        "knees": { "must_be_straight": true, "min_angle_degrees": 170 },
+        "hip_stability": { "max_height_diff_pct": 2 },
+        "trunk_stability": { "max_lean_degrees": 5 }
+      },
+      "correction_triggers": [
+        {
+          "id": "releve_001", "severity": "major",
+          "condition": "knees_not_extended",
+          "threshold": "left_knee_angle < 170 or right_knee_angle < 170",
+          "cue_pt": "Joelhos não estendidos no relevé. Estique completamente ambos os joelhos — empurre o chão para baixo enquanto sobe.",
+          "cue_en": "Knees not fully extended in relevé. Fully straighten both knees — push the floor down as you rise."
+        },
+        {
+          "id": "releve_002", "severity": "major",
+          "condition": "hip_shifting",
+          "threshold": "hip_height_diff_pct > 2",
+          "cue_pt": "Quadril deslocando lateralmente no relevé. Suba de forma simétrica — ambos os quadris nivelados.",
+          "cue_en": "Hip shifting laterally in relevé. Rise symmetrically — both hips level."
+        },
+        {
+          "id": "releve_003", "severity": "major",
+          "condition": "insufficient_rise",
+          "threshold": "max(left_heel_rise_pct, right_heel_rise_pct) < 8",
+          "cue_pt": "Subida insuficiente no relevé. Eleve os calcanhares ao máximo — imagine que alguém puxa o topo da cabeça para cima.",
+          "cue_en": "Insufficient rise in relevé. Lift the heels to maximum — imagine someone pulling the crown of your head upward."
+        },
+        {
+          "id": "releve_004", "severity": "warning",
+          "condition": "asymmetric_rise",
+          "threshold": "abs(left_heel_rise_pct - right_heel_rise_pct) > 5",
+          "cue_pt": "Subida assimétrica — um calcanhar sobe mais que o outro. Distribua o peso igualmente nos dois pés.",
+          "cue_en": "Asymmetric rise — one heel higher than the other. Distribute weight evenly across both feet."
+        },
+        {
+          "id": "releve_005", "severity": "warning",
+          "condition": "trunk_compensating",
+          "threshold": "trunk_lean_angle > 5",
+          "cue_pt": "Tronco compensando no relevé. Mantenha o eixo vertical — não incline ao subir.",
+          "cue_en": "Trunk compensating in relevé. Keep the axis vertical — do not tilt as you rise."
+        }
+      ]
+    },
+    {
+      "id": "retire_passe",
+      "term_fr": "Retiré / Passé",
+      "term_pt": "Retiré / Passé",
+      "definition_en": "The working foot is drawn up to the knee of the supporting leg, turned out. Passé describes the action of passing through this position. The supporting leg remains fully extended.",
+      "definition_pt": "O pé de trabalho é recolhido até o joelho da perna de apoio, em en dehors. Passé descreve o movimento de passar por essa posição. A perna de apoio permanece completamente esticada.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28],
+        "secondary": [11, 12, 31, 32],
+        "camera_angle": "frontal_or_lateral",
+        "note": "Lateral view preferred for assessing working foot height relative to supporting knee"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Starting position, 5th or 1st" },
+        { "id": 2, "name": "Draw up", "description": "Foot slides up supporting leg from ankle to knee" },
+        { "id": 3, "name": "Full retiré", "description": "Foot at knee of supporting leg, turned out" },
+        { "id": 4, "name": "Return / Pass", "description": "Foot passes through or returns to position" }
+      ],
+      "metrics": [
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4],
+          "note": "Supporting leg must be fully extended"
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 2 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 5 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "left_heel_rise_pct",
+          "landmarks": [29, 27],
+          "measurement_type": "height_diff_pct",
+          "correct_range": {},
+          "units": "percent",
+          "phases": [2, 3, 4],
+          "note": "Asymmetry between feet used as working-leg proxy — one foot elevated relative to other"
+        },
+        {
+          "name": "right_heel_rise_pct",
+          "landmarks": [30, 28],
+          "measurement_type": "height_diff_pct",
+          "correct_range": {},
+          "units": "percent",
+          "phases": [2, 3, 4]
+        }
+      ],
+      "correct_values": {
+        "supporting_knee": { "must_be_straight": true, "max_bend_degrees": 5 },
+        "hip_stability": { "max_height_diff_pct": 2, "no_hip_hike": true },
+        "working_foot_position": { "target": "at_supporting_knee", "note": "Not directly measurable with current landmarks — use lateral camera" },
+        "trunk_stability": { "max_lean_degrees": 5 },
+        "working_knee_height": { "min_height_diff_pct": 8 },
+        "shoulder_level": { "max_height_diff_pct": 3 },
+        "hip_rotation_control": { "max_rotation_deg": 10 }
+      },
+      "correction_triggers": [
+        {
+          "id": "retire_001", "severity": "major",
+          "condition": "supporting_knee_bent",
+          "threshold": "supporting_knee_angle < 175",
+          "cue_pt": "Joelho de apoio dobrado no retiré. Estique completamente o joelho de suporte — o equilíbrio sai do centro, não do joelho.",
+          "cue_en": "Supporting knee bending in retiré. Fully extend the supporting knee — balance comes from the center, not the knee."
+        },
+        {
+          "id": "retire_002", "severity": "major",
+          "condition": "hip_hiking",
+          "threshold": "hip_height_diff_pct > 2",
+          "cue_pt": "Quadril subindo no retiré. Não eleve o quadril da perna de trabalho — mantenha os dois quadris nivelados.",
+          "cue_en": "Hip hiking in retiré. Do not lift the working-leg hip — keep both hips level."
+        },
+        {
+          "id": "retire_003", "severity": "warning",
+          "condition": "trunk_instability",
+          "threshold": "trunk_lean_angle > 5",
+          "cue_pt": "Tronco instável no retiré. Mantenha o eixo ereto — o equilíbrio é conquistado pelo centro, não pela inclinação.",
+          "cue_en": "Trunk instability in retiré. Keep the axis upright — balance is achieved from the core, not by leaning."
+        },
+        { "id": "retire_004", "severity": "major", "cue_pt": "Joelho de trabalho baixo demais no retiré. Eleva o joelho até à altura do quadril.", "cue_en": "Working knee too low in retiré. Lift the knee to hip height." },
+        { "id": "retire_005", "severity": "warning", "cue_pt": "Ombro a subir no retiré. Mantém os ombros nivelados e relaxados.", "cue_en": "Shoulder lifting in retiré. Keep shoulders level and relaxed." },
+        { "id": "retire_006", "severity": "warning", "cue_pt": "Quadril a abrir no retiré. Mantém os quadris quadrados.", "cue_en": "Hip opening in retiré. Keep hips square." }
+      ]
+    },
+    {
+      "id": "fondu",
+      "term_fr": "Fondu",
+      "term_pt": "Fondu",
+      "definition_en": "A melting or sinking action. The supporting leg bends in a controlled plié on one leg as the working leg extends, then both straighten simultaneously with smooth coordination.",
+      "definition_pt": "Ação de derreter ou afundar. A perna de apoio dobra em um plié controlado sobre uma perna enquanto a perna de trabalho se estende, depois ambas se esticam simultaneamente com coordenação suave.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28],
+        "secondary": [11, 12, 31, 32],
+        "camera_angle": "frontal_or_lateral"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Starting position" },
+        { "id": 2, "name": "Fondu", "description": "Supporting leg bends, working leg extends outward" },
+        { "id": 3, "name": "Lowest point", "description": "Maximum bend on supporting leg" },
+        { "id": 4, "name": "Extension", "description": "Both legs straighten simultaneously" },
+        { "id": 5, "name": "Return", "description": "Return to starting position" }
+      ],
+      "metrics": [
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 90 },
+          "units": "degrees",
+          "phases": [2, 3],
+          "note": "Supporting leg; fondu is shallower than grand plié — typically 110–140° at deepest"
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 90 },
+          "units": "degrees",
+          "phases": [2, 3]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 3 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4, 5]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 8 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        },
+        {
+          "name": "left_knee_toe_offset_norm",
+          "landmarks": [25, 31],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.06 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3]
+        },
+        {
+          "name": "right_knee_toe_offset_norm",
+          "landmarks": [26, 32],
+          "measurement_type": "normalized_offset",
+          "correct_range": { "max": 0.06 },
+          "units": "normalized_hip_width",
+          "phases": [2, 3]
+        }
+      ],
+      "correct_values": {
+        "supporting_knee": { "must_track_over_toe": true, "max_offset_normalized": 0.06 },
+        "hip_stability": { "max_height_diff_pct": 3 },
+        "trunk_stability": { "max_lean_degrees": 8 },
+        "coordination": { "simultaneous_extension": true, "description": "Supporting and working leg extend together" },
+        "working_leg_extension": { "max_arabesque_angle_at_finish": 155 },
+        "hip_rotation": { "max_rotation_deg": 12 },
+        "spine_alignment": { "max_spine_vertical_angle_deg": 12 }
+      },
+      "correction_triggers": [
+        {
+          "id": "fondu_001", "severity": "major",
+          "condition": "supporting_knee_collapsing",
+          "threshold": "knee_toe_offset_norm > 0.06",
+          "cue_pt": "Joelho de apoio caindo para dentro no fondu. Mantenha o joelho sobre o 2º e 3º dedos — o fondu desce sobre o eixo, não colapsa.",
+          "cue_en": "Supporting knee collapsing inward in fondu. Keep the knee over the 2nd and 3rd toes — fondu descends on the axis, not collapsing."
+        },
+        {
+          "id": "fondu_002", "severity": "major",
+          "condition": "hip_not_level",
+          "threshold": "hip_height_diff_pct > 3",
+          "cue_pt": "Quadril desnivelado no fondu. Mantenha os quadris nivelados — o fondu não é um plié lateral.",
+          "cue_en": "Hip not level in fondu. Keep hips level — fondu is not a sideways plié."
+        },
+        {
+          "id": "fondu_003", "severity": "warning",
+          "condition": "trunk_compensating",
+          "threshold": "trunk_lean_angle > 8",
+          "cue_pt": "Tronco compensando no fondu. Mantenha o eixo longo — não incline para equilibrar a perna de trabalho.",
+          "cue_en": "Trunk compensating in fondu. Keep the axis long — do not tilt to balance the working leg."
+        },
+        { "id": "fondu_004", "severity": "major", "cue_pt": "Perna de trabalho não se estende no fondu. Estende completamente no final do movimento.", "cue_en": "Working leg not extending in fondu. Fully extend at the end of the movement." },
+        { "id": "fondu_005", "severity": "warning", "cue_pt": "Quadril a rodar no fondu. Mantém o en dehors sem rodar o quadril.", "cue_en": "Hip rotating in fondu. Maintain en dehors without twisting the hip." },
+        { "id": "fondu_006", "severity": "warning", "cue_pt": "Coluna a ceder no fondu. Alonga a coluna — cresce para cima.", "cue_en": "Spine collapsing in fondu. Lengthen the spine — grow upward." }
+      ]
+    },
+    {
+      "id": "arabesque",
+      "term_fr": "Arabesque",
+      "term_pt": "Arabesque",
+      "definition_en": "Foundational pose. Body in profile on one leg, other leg extended behind at right angle or higher. Arms create the longest possible line fingertips to toes.",
+      "definition_pt": "Pose fundamental. Corpo de perfil sobre uma perna, outra perna estendida atrás em ângulo reto ou acima. Braços criam a linha mais longa possível da ponta dos dedos ao dedão do pé.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 27, 28],
+        "secondary": [11, 12, 25, 26],
+        "camera_angle": "lateral",
+        "note": "arabesque_angle computed as angle_3pt(left_hip, right_hip, right_ankle) — assumes right working leg"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation" },
+        { "id": 2, "name": "Full arabesque" },
+        { "id": 3, "name": "Hold" },
+        { "id": 4, "name": "Return" }
+      ],
+      "metrics": [
+        {
+          "name": "arabesque_angle",
+          "joint_triplet": [23, 24, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "max": 90 },
+          "units": "degrees",
+          "phases": [2, 3],
+          "note": "Angle at right_hip vertex; values <90° indicate working leg at or above target height"
+        },
+        {
+          "name": "hip_rotation_deg",
+          "landmarks": [23, 24],
+          "measurement_type": "hip_rotation_z",
+          "correct_range": { "max": 5 },
+          "units": "degrees",
+          "phases": [2, 3]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 8 },
+          "units": "degrees",
+          "phases": [2, 3]
+        },
+        {
+          "name": "shoulder_height_diff_pct",
+          "landmarks": [11, 12],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 4 },
+          "units": "percent",
+          "phases": [2, 3]
+        }
+      ],
+      "correct_values": {
+        "working_leg_height": { "min_angle_degrees": 90 },
+        "hip_squareness": { "max_rotation_degrees": 5 },
+        "spine_vertical": { "max_deviation_pct": 8 },
+        "shoulder_level": { "max_height_diff_pct": 4 }
+      },
+      "correction_triggers": [
+        {
+          "id": "arab_001", "severity": "major",
+          "cue_pt": "Arabesque abaixo de 90°. Eleve a perna — inicie o movimento do quadril, não do joelho.",
+          "cue_en": "Arabesque below 90°. Lift the leg — initiate from the hip, not the knee."
+        },
+        {
+          "id": "arab_002", "severity": "major",
+          "cue_pt": "Quadril abrindo. Mantenha ambos os quadris de frente — não rode o quadril de trabalho para cima.",
+          "cue_en": "Hip opening. Keep both hips square to the front — do not rotate the working hip upward."
+        },
+        {
+          "id": "arab_003", "severity": "warning",
+          "cue_pt": "Tronco inclinando muito para frente. Mantenha o eixo ereto — engage o core.",
+          "cue_en": "Trunk leaning too far forward. Maintain upright axis — engage the core."
+        },
+        {
+          "id": "arab_004", "severity": "warning",
+          "cue_pt": "Ombros desiguais. Épaulement — ombros quadrados, não levante o ombro da frente.",
+          "cue_en": "Shoulders uneven. Épaulement — shoulders square, do not raise the front shoulder."
+        }
+      ]
+    },
+    {
+      "id": "port_de_bras",
+      "term_fr": "Port de Bras",
+      "term_pt": "Port de Bras",
+      "definition_en": "Carriage of the arms. A movement or series of movements made by passing the arm or arms through various positions.",
+      "definition_pt": "Porte dos braços. Um movimento ou série de movimentos feitos passando um ou ambos os braços por várias posições.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [11, 12, 13, 14, 15, 16],
+        "secondary": [23, 24],
+        "camera_angle": "frontal"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Arms in starting position" },
+        { "id": 2, "name": "Movement", "description": "Arms pass through prescribed positions" },
+        { "id": 3, "name": "Return", "description": "Return to starting position" }
+      ],
+      "metrics": [
+        {
+          "name": "left_elbow_angle",
+          "joint_triplet": [11, 13, 15],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 140, "max": 160 },
+          "units": "degrees",
+          "phases": [1, 2, 3]
+        },
+        {
+          "name": "right_elbow_angle",
+          "joint_triplet": [12, 14, 16],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 140, "max": 160 },
+          "units": "degrees",
+          "phases": [1, 2, 3]
+        },
+        {
+          "name": "shoulder_height_diff_pct",
+          "landmarks": [11, 12],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 2 },
+          "units": "percent",
+          "phases": [1, 2, 3]
+        },
+        {
+          "name": "left_wrist_drop_pct",
+          "landmarks": [15, 13],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 6 },
+          "units": "percent",
+          "phases": [1, 2, 3],
+          "note": "Wrist should not drop more than 6% of frame height below elbow"
+        },
+        {
+          "name": "right_wrist_drop_pct",
+          "landmarks": [16, 14],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 6 },
+          "units": "percent",
+          "phases": [1, 2, 3]
+        }
+      ],
+      "correct_values": {
+        "elbow_curve": { "min_angle_degrees": 140, "max_angle_degrees": 160 },
+        "wrist_alignment": { "no_broken_wrist": true },
+        "shoulder_tension": { "max_elevation_pct": 2 }
+      },
+      "correction_triggers": [
+        {
+          "id": "bras_001", "severity": "major",
+          "cue_pt": "Ombros subindo durante o port de bras. Relaxe os ombros para baixo — mantenha o pescoço longo.",
+          "cue_en": "Shoulders rising during port de bras. Release shoulders down — keep the neck long."
+        },
+        {
+          "id": "bras_002", "severity": "warning",
+          "cue_pt": "Cotovelos muito retos. Mantenha a curva suave do braço — cotovelo levemente dobrado.",
+          "cue_en": "Elbows too straight. Maintain the soft arm curve — elbow slightly bent."
+        },
+        {
+          "id": "bras_003", "severity": "warning",
+          "cue_pt": "Pulso quebrado. Alinhe o pulso com o antebraço — mão suave, não caída.",
+          "cue_en": "Broken wrist. Align the wrist with the forearm — soft hand, not dropped."
+        }
+      ]
+    },
+    {
+      "id": "grand_battement",
+      "term_fr": "Grand Battement",
+      "term_pt": "Grand Battement",
+      "definition_en": "A large beating movement where the working leg is thrown to the highest possible point and brought back to position with control.",
+      "definition_pt": "Grande movimento batido onde a perna de trabalho é arremessada ao ponto mais alto possível e retorna à posição com controle.",
+      "validated": true,
+      "landmarks_required": {
+        "primary": [23, 24, 25, 26, 27, 28],
+        "secondary": [11, 12],
+        "camera_angle": "lateral_or_frontal"
+      },
+      "phases": [
+        { "id": 1, "name": "Preparation", "description": "Starting position" },
+        { "id": 2, "name": "Throw", "description": "Working leg throws upward with force" },
+        { "id": 3, "name": "Peak", "description": "Highest point of working leg" },
+        { "id": 4, "name": "Return", "description": "Controlled descent back to position" }
+      ],
+      "metrics": [
+        {
+          "name": "arabesque_angle",
+          "joint_triplet": [23, 24, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "max": 90 },
+          "units": "degrees",
+          "phases": [2, 3],
+          "note": "Proxy for working leg height; same computation as arabesque metric"
+        },
+        {
+          "name": "left_knee_angle",
+          "joint_triplet": [23, 25, 27],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4],
+          "note": "Supporting knee must remain fully extended throughout"
+        },
+        {
+          "name": "right_knee_angle",
+          "joint_triplet": [24, 26, 28],
+          "measurement_type": "angle_3pt",
+          "correct_range": { "min": 175 },
+          "units": "degrees",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "hip_height_diff_pct",
+          "landmarks": [23, 24],
+          "measurement_type": "height_diff_pct",
+          "correct_range": { "max": 4 },
+          "units": "percent",
+          "phases": [1, 2, 3, 4]
+        },
+        {
+          "name": "trunk_lean_angle",
+          "landmarks": [23, 24, 11, 12],
+          "measurement_type": "vertical_angle_midpoints",
+          "correct_range": { "max": 9 },
+          "units": "degrees",
+          "phases": [2, 3, 4]
+        }
+      ],
+      "correct_values": {
+        "working_leg_height": { "min_angle_degrees": 90 },
+        "supporting_leg": { "must_be_straight": true },
+        "hip_stability": { "max_height_diff_pct": 4 },
+        "return_control": { "controlled_descent": true },
+        "battement_height": { "max_arabesque_angle_at_peak": 135 },
+        "hip_rotation_control": { "max_rotation_deg": 15 },
+        "trunk_control": { "max_anterior_tilt_deg": 10 }
+      },
+      "correction_triggers": [
+        {
+          "id": "gbat_001", "severity": "major",
+          "cue_pt": "Quadril subindo com a perna. Estabilize o quadril — o grand battement vem da articulação do quadril, não da bacia.",
+          "cue_en": "Hip riding up with the leg. Stabilize the hip — grand battement comes from the hip joint, not the pelvis."
+        },
+        {
+          "id": "gbat_002", "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Mantenha o joelho completamente esticado durante todo o battement.",
+          "cue_en": "Supporting knee bending. Keep the knee fully extended throughout the battement."
+        },
+        {
+          "id": "gbat_003", "severity": "warning",
+          "cue_pt": "Retorno descontrolado. Controle a descida com a mesma energia da subida — não deixe cair.",
+          "cue_en": "Uncontrolled return. Control the descent with the same energy as the lift — do not let it drop."
+        },
+        { "id": "gbat_004", "severity": "major", "cue_pt": "Batimento insuficiente. Eleva a perna pelo menos a 45°.", "cue_en": "Insufficient battement height. Lift the leg at least 45°." },
+        { "id": "gbat_005", "severity": "warning", "cue_pt": "Quadril a rodar no batimento. Mantém o quadril estabilizado.", "cue_en": "Hip twisting on battement. Keep the hip stabilized." },
+        { "id": "gbat_006", "severity": "warning", "cue_pt": "Tronco a compensar na subida. Controla o eixo durante o batimento.", "cue_en": "Trunk compensating on the kick. Control the axis during the battement." }
+      ]
+    },
+    {
+      "id": "glissade", "term_fr": "Glissade", "term_pt": "Glissade",
+      "definition_en": "A gliding step transferring weight from one foot to the other through demi-plié.",
+      "definition_pt": "Passo deslizante que transfere o peso de um pé para o outro através do demi-plié.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12],"camera_angle":"frontal"},
+      "phases": [{"id":1,"name":"Preparation"},{"id":2,"name":"Slide"},{"id":3,"name":"Air"},{"id":4,"name":"Landing"}],
+      "correct_values": {
+        "landing_plie": {"max_knee_angle_at_landing": 165},
+        "leg_extension": {"min_offset_norm": 0.20},
+        "hip_level": {"max_height_diff_pct": 4},
+        "trunk_stability": {"max_lean_degrees": 8}
+      },
+      "correction_triggers": [
+        {"id":"glissade_001","severity":"major","cue_pt":"Aterragem sem demi-plié. Amortece a chegada com o joelho.","cue_en":"Landing without demi-plié. Absorb the landing with the knee."},
+        {"id":"glissade_002","severity":"major","cue_pt":"Perna de trabalho não se estende durante a glissade. Desliza com a perna completamente estendida.","cue_en":"Working leg not extending during glissade. Slide with the leg fully extended."},
+        {"id":"glissade_003","severity":"major","cue_pt":"Quadril desnivelado na glissade. Mantém os quadris a nível.","cue_en":"Hip not level in glissade. Keep hips level."},
+        {"id":"glissade_004","severity":"warning","cue_pt":"Tronco a inclinar na glissade. Mantém o eixo central durante o deslize.","cue_en":"Trunk leaning in glissade. Maintain the central axis during the slide."}
+      ]
+    },
+    {
+      "id": "battement_degage", "term_fr": "Battement Dégagé", "term_pt": "Battement Dégagé",
+      "definition_en": "The working foot brushes quickly through tendu position until it leaves the floor, with full extension.",
+      "definition_pt": "O pé de trabalho passa rapidamente pela posição de tendu até deixar o chão, com extensão completa.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12],"camera_angle":"frontal_or_lateral"},
+      "phases": [{"id":1,"name":"Preparation"},{"id":2,"name":"Brush"},{"id":3,"name":"Peak"},{"id":4,"name":"Return"}],
+      "correct_values": {
+        "supporting_knee": {"must_be_straight":true,"max_bend_degrees":10},
+        "hip_stability": {"max_height_diff_pct":2},
+        "foot_extension": {"min_offset_norm":0.25},
+        "trunk_stability": {"max_lean_degrees":6}
+      },
+      "correction_triggers": [
+        {"id":"degage_001","severity":"major","cue_pt":"Joelho de apoio a dobrar no dégagé. Estica completamente o joelho de suporte.","cue_en":"Supporting knee bending in dégagé. Fully extend the supporting knee."},
+        {"id":"degage_002","severity":"major","cue_pt":"Quadril a subir com a perna. Mantém os quadris estabilizados.","cue_en":"Hip hiking with the leg. Keep hips stabilized."},
+        {"id":"degage_003","severity":"warning","cue_pt":"Pé não completamente apontado. Estende através da ponta do pé.","cue_en":"Foot not fully pointed. Extend through the tip of the foot."},
+        {"id":"degage_004","severity":"warning","cue_pt":"Tronco instável no dégagé. Mantém o eixo fixo.","cue_en":"Trunk instability in dégagé. Keep the axis fixed."}
+      ]
+    },
+    {
+      "id": "rond_de_jambe", "term_fr": "Rond de Jambe à Terre", "term_pt": "Rond de Jambe à Terre",
+      "definition_en": "Circular movement of the working leg on the floor from front through side to back (en dehors) or reverse.",
+      "definition_pt": "Movimento circular da perna de trabalho no chão de frente passando pelo lado até atrás (en dehors) ou ao contrário.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12],"camera_angle":"frontal"},
+      "phases": [{"id":1,"name":"Devant"},{"id":2,"name":"À la seconde"},{"id":3,"name":"Derrière"},{"id":4,"name":"Return"}],
+      "correct_values": {
+        "hip_squareness": {"max_height_diff_pct":2.5},
+        "supporting_knee": {"must_be_straight":true,"max_bend_degrees":7},
+        "trunk_stability": {"max_lean_degrees":7},
+        "hip_rotation": {"max_rotation_deg":12}
+      },
+      "correction_triggers": [
+        {"id":"rond_001","severity":"major","cue_pt":"Quadril a abrir no rond de jambe. Mantém os quadris quadrados à frente.","cue_en":"Hip squareness lost in rond de jambe. Keep hips square to the front."},
+        {"id":"rond_002","severity":"major","cue_pt":"Joelho de apoio a dobrar. Mantém-no completamente esticado durante o círculo.","cue_en":"Supporting knee bending. Keep it fully extended throughout the circle."},
+        {"id":"rond_003","severity":"warning","cue_pt":"Tronco a compensar no rond de jambe. Eixo estável enquanto a perna trabalha.","cue_en":"Trunk compensating in rond de jambe. Stable axis while the leg works."},
+        {"id":"rond_004","severity":"warning","cue_pt":"Quadril a rodar. Mantém o en dehors sem rodar o quadril.","cue_en":"Hip twisting. Maintain en dehors without rotating the hip."}
+      ]
+    },
+    {
+      "id": "developpe", "term_fr": "Développé", "term_pt": "Développé",
+      "definition_en": "The working leg unfolds from retiré to full extension at height, supporting leg straight throughout.",
+      "definition_pt": "A perna de trabalho se desdobra do retiré até à extensão total na altura, perna de apoio reta durante todo o movimento.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12,13,14],"camera_angle":"frontal_or_lateral"},
+      "phases": [{"id":1,"name":"Preparation"},{"id":2,"name":"Draw up"},{"id":3,"name":"Development"},{"id":4,"name":"Hold"},{"id":5,"name":"Return"}],
+      "correct_values": {
+        "supporting_knee": {"must_be_straight":true,"max_bend_degrees":7},
+        "hip_stability": {"max_height_diff_pct":3},
+        "extension_height": {"max_arabesque_angle_at_peak":140},
+        "trunk_stability": {"max_lean_degrees":7},
+        "shoulder_level": {"max_height_diff_pct":3}
+      },
+      "correction_triggers": [
+        {"id":"dev_001","severity":"major","cue_pt":"Joelho de apoio dobrado no développé. Estica completamente.","cue_en":"Supporting knee bending in développé. Fully extend."},
+        {"id":"dev_002","severity":"major","cue_pt":"Quadril a subir durante o desenvolvimento. Estabiliza o quadril.","cue_en":"Hip hiking during development. Stabilize the hip."},
+        {"id":"dev_003","severity":"major","cue_pt":"Extensão insuficiente no développé. Desenvolve a perna até à altura máxima.","cue_en":"Insufficient extension in développé. Develop the leg to maximum height."},
+        {"id":"dev_004","severity":"warning","cue_pt":"Tronco a compensar no développé. Mantém o eixo ereto.","cue_en":"Trunk compensating in développé. Keep the axis upright."},
+        {"id":"dev_005","severity":"warning","cue_pt":"Ombro a subir no développé. Relaxa os ombros para baixo.","cue_en":"Shoulder lifting in développé. Relax shoulders down."}
+      ]
+    },
+    {
+      "id": "echappe",
+      "term_fr": "Échappé Relevé",
+      "term_pt": "Échappé Relevé",
+      "definition_en": "An escaping movement. Both feet open from 5th to 2nd (or 4th) position on relevé, then close back to 5th with a controlled landing.",
+      "definition_pt": "Movimento de fuga. Ambos os pés abrem da 5ª para a 2ª (ou 4ª) posição no relevé, depois fecham para a 5ª com uma aterragem controlada.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,29,30,31,32],"secondary":[11,12],"camera_angle":"frontal"},
+      "phases": [
+        {"id":1,"name":"Preparation","description":"5th position"},
+        {"id":2,"name":"Opening","description":"Feet open to 2nd on relevé"},
+        {"id":3,"name":"Full échappé","description":"Both feet in 2nd, heels lifted"},
+        {"id":4,"name":"Closing","description":"Feet return to 5th with plié"}
+      ],
+      "correct_values": {
+        "knee_extension": {"min_angle_degrees": 168},
+        "foot_opening": {"min_spread_norm": 0.25, "description": "Feet open to proper 2nd position"},
+        "landing_plie": {"max_knee_angle_at_close": 165},
+        "hip_stability": {"max_height_diff_pct": 2.5},
+        "trunk_stability": {"max_lean_degrees": 6}
+      },
+      "correction_triggers": [
+        {"id":"echappe_001","severity":"major","cue_pt":"Joelhos não estendidos no échappé. Estica completamente os dois joelhos na subida.","cue_en":"Knees not extended in échappé. Fully extend both knees at the top."},
+        {"id":"echappe_002","severity":"major","cue_pt":"Pés não abrem suficientemente para a 2ª posição. Abre completamente no échappé.","cue_en":"Feet not opening fully to 2nd position. Open fully in the échappé."},
+        {"id":"echappe_003","severity":"major","cue_pt":"Fecho sem demi-plié. Amortece o fechamento com os joelhos.","cue_en":"Closing without demi-plié. Absorb the closing with the knees."},
+        {"id":"echappe_004","severity":"warning","cue_pt":"Quadril desnivelado no échappé. Mantém os quadris simétricos.","cue_en":"Hip not level in échappé. Keep hips symmetrical."},
+        {"id":"echappe_005","severity":"warning","cue_pt":"Tronco a compensar no échappé. Mantém o eixo vertical.","cue_en":"Trunk compensating in échappé. Keep the axis vertical."}
+      ]
+    },
+    {
+      "id": "assemble",
+      "term_fr": "Assemblé",
+      "term_pt": "Assemblé",
+      "definition_en": "An assembling step. The working leg brushes out as the supporting leg pushes off the floor; both legs come together in the air and land in 5th position demi-plié.",
+      "definition_pt": "Passo de assemblagem. A perna de trabalho desliza enquanto a perna de apoio empurra o chão; ambas as pernas juntam-se no ar e aterram na 5ª posição em demi-plié.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12],"camera_angle":"frontal"},
+      "phases": [
+        {"id":1,"name":"Demi-plié","description":"Preparatory bend"},
+        {"id":2,"name":"Brush","description":"Working leg brushes out"},
+        {"id":3,"name":"Air","description":"Both legs together in air"},
+        {"id":4,"name":"Landing","description":"5th position demi-plié"}
+      ],
+      "correct_values": {
+        "landing_plie": {"max_knee_angle_at_landing": 162},
+        "feet_assembly": {"max_spread_norm_at_landing": 0.12},
+        "hip_stability": {"max_height_diff_pct": 3},
+        "trunk_stability": {"max_lean_degrees": 8}
+      },
+      "correction_triggers": [
+        {"id":"assemble_001","severity":"major","cue_pt":"Aterragem sem demi-plié. Amortece a chegada com os joelhos.","cue_en":"Landing without demi-plié. Absorb the landing with the knees."},
+        {"id":"assemble_002","severity":"major","cue_pt":"Pés não se juntam corretamente. Fecha os pés na 5ª posição no ar.","cue_en":"Feet not assembling tightly. Close feet to 5th position in the air."},
+        {"id":"assemble_003","severity":"warning","cue_pt":"Quadril desnivelado no assemblé. Mantém os quadris estabilizados.","cue_en":"Hip not level in assemblé. Keep hips stabilized."},
+        {"id":"assemble_004","severity":"warning","cue_pt":"Tronco a inclinar no assemblé. Mantém o eixo central.","cue_en":"Trunk leaning in assemblé. Maintain the central axis."}
+      ]
+    },
+    {
+      "id": "frappe",
+      "term_fr": "Battement Frappé",
+      "term_pt": "Battement Frappé",
+      "definition_en": "A struck beating. The working foot strikes sharply from cou-de-pied position to a pointed extension, then returns. The action is quick and percussive.",
+      "definition_pt": "Batimento percussivo. O pé de trabalho bate agudamente a partir da posição cou-de-pied para uma extensão apontada, depois retorna. A ação é rápida e percussiva.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28,31,32],"secondary":[11,12],"camera_angle":"frontal_or_lateral"},
+      "phases": [
+        {"id":1,"name":"Cou-de-pied","description":"Working foot at ankle of supporting leg"},
+        {"id":2,"name":"Strike","description":"Sharp extension out"},
+        {"id":3,"name":"Peak","description":"Leg extended, foot pointed"},
+        {"id":4,"name":"Return","description":"Rapid return to cou-de-pied"}
+      ],
+      "correct_values": {
+        "supporting_knee": {"must_be_straight": true, "max_bend_degrees": 7},
+        "hip_stability": {"max_height_diff_pct": 2},
+        "foot_point": {"min_offset_norm": 0.25},
+        "trunk_stability": {"max_lean_degrees": 6}
+      },
+      "correction_triggers": [
+        {"id":"frappe_001","severity":"major","cue_pt":"Joelho de apoio a dobrar. Mantém-no completamente esticado durante o frappé.","cue_en":"Supporting knee bending. Keep it fully extended throughout the frappé."},
+        {"id":"frappe_002","severity":"major","cue_pt":"Quadril a subir com a perna. Estabiliza o quadril.","cue_en":"Hip hiking with the leg. Stabilize the hip."},
+        {"id":"frappe_003","severity":"warning","cue_pt":"Pé não completamente apontado no frappé. Projeta através da ponta do pé.","cue_en":"Foot not fully pointed in frappé. Project through the tip of the foot."},
+        {"id":"frappe_004","severity":"warning","cue_pt":"Tronco instável no frappé. Mantém o eixo fixo durante o batimento.","cue_en":"Trunk instability in frappé. Keep the axis fixed during the strike."}
+      ]
+    },
+    {
+      "id": "attitude",
+      "term_fr": "Attitude",
+      "term_pt": "Attitude",
+      "definition_en": "A position in which the working leg is raised behind (or to front/side) with the knee bent at approximately 90 degrees, thigh raised en hauteur. The supporting leg remains straight.",
+      "definition_pt": "Posição em que a perna de trabalho é elevada para trás (ou frente/lado) com o joelho dobrado a aproximadamente 90 graus, coxa elevada en hauteur. A perna de apoio permanece reta.",
+      "validated": false,
+      "landmarks_required": {"primary":[23,24,25,26,27,28],"secondary":[11,12,13,14],"camera_angle":"lateral_or_frontal"},
+      "phases": [
+        {"id":1,"name":"Preparation","description":"Starting position"},
+        {"id":2,"name":"Rising","description":"Working leg lifts and knee bends"},
+        {"id":3,"name":"Hold","description":"Attitude position held"},
+        {"id":4,"name":"Return","description":"Controlled descent"}
+      ],
+      "correct_values": {
+        "working_knee_angle": {"target_degrees": 90, "min_degrees": 50, "max_degrees": 145},
+        "supporting_knee": {"must_be_straight": true, "max_bend_degrees": 10},
+        "hip_stability": {"max_height_diff_pct": 3},
+        "trunk_stability": {"max_lean_degrees": 7},
+        "shoulder_level": {"max_height_diff_pct": 3}
+      },
+      "correction_triggers": [
+        {"id":"attitude_001","severity":"major","cue_pt":"Joelho de trabalho não dobrado na attitude. Dobra o joelho a 90° — a attitude não é arabesque.","cue_en":"Working knee not bent in attitude. Bend the knee to 90° — attitude is not arabesque."},
+        {"id":"attitude_002","severity":"major","cue_pt":"Joelho de apoio a dobrar. Estica completamente a perna de apoio.","cue_en":"Supporting knee bending. Fully extend the supporting leg."},
+        {"id":"attitude_003","severity":"major","cue_pt":"Quadril a subir na attitude. Estabiliza o quadril.","cue_en":"Hip hiking in attitude. Stabilize the hip."},
+        {"id":"attitude_004","severity":"warning","cue_pt":"Tronco a compensar na attitude. Mantém o eixo ereto.","cue_en":"Trunk compensating in attitude. Keep the axis upright."},
+        {"id":"attitude_005","severity":"warning","cue_pt":"Ombro a subir na attitude. Relaxa os ombros para baixo.","cue_en":"Shoulder lifting in attitude. Relax shoulders down."}
+      ]
+    }
+  ]
+}

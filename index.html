@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>(r)elevē</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#000;min-height:100vh;color:#fff;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+  button{font-family:inherit;outline:none;-webkit-tap-highlight-color:transparent}
+  #root{display:flex;justify-content:center;align-items:flex-start;min-height:100vh;background:#000}
+  .shell{width:100%;max-width:430px;min-height:100vh;background:#000;position:relative}
+  @media(min-width:600px){
+    #root{background:#0a0a0a;align-items:center;padding:32px 0}
+    .shell{max-width:390px;min-height:844px;border-radius:48px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.9)}
+  }
+  input[type=file]{display:none}
+  ::-webkit-scrollbar{display:none}
+  *{scrollbar-width:none}
+</style>
+</head>
+<body>
+<div id="root"><div class="shell" id="shell"></div></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+// ── Tokens ──────────────────────────────────────────────────────
+const C = {
+  bg:'#080808', card:'#111114', cardHi:'#18181c',
+  border:'rgba(255,255,255,0.07)', borderHi:'rgba(255,255,255,0.12)',
+  text:'#f0f0f0', dim:'rgba(255,255,255,0.45)', dimmer:'rgba(255,255,255,0.28)',
+  purple:'#7B6EF6', pink:'#D455A8', green:'#4EC994',
+  grad:'linear-gradient(135deg,#D455A8 0%,#7B6EF6 100%)',
+  accent:'rgba(123,110,246,0.12)',
+};
+const F = {
+  body:'"Inter","Helvetica Neue",system-ui,sans-serif',
+  mono:'"JetBrains Mono","SF Mono",ui-monospace,monospace',
+  serif:'"Cormorant Garamond","Times New Roman",serif',
+};
+
+// ── Body labels per correction ID ───────────────────────────────
+const BODY = {
+  plie_001:'Knee alignment', plie_002:'Pelvic tilt', plie_003:'Heel contact',
+  plie_005:'Heel contact',   plie_006:'Plié rhythm',  plie_007:'Plié fluidity',
+  plie_008:'Trunk lean',     plie_009:'Hip stability', plie_011:'Joint depth',
+  tendu_001:'Supporting leg', tendu_002:'Hip alignment',
+  tendu_003:'Foot articulation', tendu_004:'Trunk stability',
+  tendu_005:'Hip squareness', tendu_006:'Weight centre', tendu_007:'Arm position',
+  retire_004:'Working knee height', retire_005:'Shoulder level', retire_006:'Hip squareness',
+  fondu_004:'Working leg', fondu_005:'Hip rotation', fondu_006:'Spine alignment',
+  gbat_004:'Battement height', gbat_005:'Hip stability', gbat_006:'Trunk control',
+  glissade_001:'Landing plié', glissade_002:'Leg extension', glissade_003:'Hip level', glissade_004:'Trunk lean',
+  degage_001:'Supporting leg', degage_002:'Hip stability', degage_003:'Foot point', degage_004:'Trunk stability',
+  rond_001:'Hip squareness', rond_002:'Supporting leg', rond_003:'Trunk stability', rond_004:'Hip rotation',
+  dev_001:'Supporting leg', dev_002:'Hip stability', dev_003:'Extension height', dev_004:'Trunk lean', dev_005:'Shoulder level',
+  echappe_001:'Knee extension', echappe_002:'Foot opening', echappe_003:'Landing plié', echappe_004:'Hip level', echappe_005:'Trunk lean',
+  assemble_001:'Landing plié', assemble_002:'Foot assembly', assemble_003:'Hip stability', assemble_004:'Trunk lean',
+  frappe_001:'Supporting leg', frappe_002:'Hip stability', frappe_003:'Foot point', frappe_004:'Trunk stability',
+  attitude_001:'Working knee', attitude_002:'Supporting leg', attitude_003:'Hip stability', attitude_004:'Trunk lean', attitude_005:'Shoulder level',
+  arab_001:'Working leg',   arab_002:'Hip squareness',
+  arab_003:'Trunk lean',    arab_004:'Shoulder level',
+  bras_001:'Shoulder tension', bras_002:'Elbow curve', bras_003:'Wrist alignment',
+  gbat_001:'Hip stability', gbat_002:'Supporting leg', gbat_003:'Return control',
+  releve_001:'Knee extension', releve_002:'Hip stability',
+  releve_003:'Rise height',  releve_004:'Rise symmetry', releve_005:'Trunk lean',
+  retire_001:'Supporting leg', retire_002:'Hip stability', retire_003:'Trunk lean',
+  fondu_001:'Knee alignment', fondu_002:'Hip level', fondu_003:'Trunk lean',
+};
+
+// ── Helpers ─────────────────────────────────────────────────────
+const fmtEx = id => (id||'').replace(/_/g,' ').split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+const fmtDate = iso => { if(!iso) return ''; const d=new Date(iso); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); };
+const fmtTs = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+const avgScore = ss => ss.length ? Math.round(ss.reduce((a,s)=>a+(s.score||0),0)/ss.length) : 0;
+const weekSessions = ss => { const cut=Date.now()-7*864e5; return ss.filter(s=>new Date(s.created_at)>cut).length; };
+function streak(ss) {
+  if(!ss.length) return 0;
+  const days=[...new Set(ss.map(s=>{const d=new Date(s.created_at);return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`}))].sort().reverse();
+  let n=1; for(let i=1;i<days.length;i++){const a=new Date(days[i-1]),b=new Date(days[i]); if(Math.round((a-b)/864e5)===1)n++; else break;} return n;
+}
+function topFix(ss) {
+  const cnt={}; ss.forEach(s=>(s.report?.corrections||[]).forEach(c=>{const k=fmtEx(c.exercise_id||c.id?.split('_')[0]||'?');cnt[k]=(cnt[k]||0)+(c.frequency||1);}));
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+  if(!top) return {v:'—',u:'no data'};
+  const w=top[0].split(' '); return {v:w[0]||'—',u:w.slice(1).join(' ')};
+}
+
+// ── Grain band ──────────────────────────────────────────────────
+const GRAIN = 'url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22 opacity=%220.7%22/></svg>")';
+function GrainBand({height=80,radius=16,style={}}) {
+  return <div style={{height,borderRadius:radius,background:C.grad,position:'relative',overflow:'hidden',...style}}>
+    <div style={{position:'absolute',inset:0,opacity:0.35,mixBlendMode:'overlay',backgroundImage:GRAIN}}/>
+    <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.25) 100%)'}}/>
+  </div>;
+}
+
+// ── Icons ───────────────────────────────────────────────────────
+const Ico = {
+  home:(s=22,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v9a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2v-9z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/></svg>,
+  plus:(s=24,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke={c} strokeWidth="2" strokeLinecap="round"/></svg>,
+  chart:(s=22,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke={c} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  user:(s=22,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke={c} strokeWidth="1.6"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke={c} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  camera:(s=28,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M3 7h3l2-2h8l2 2h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/><circle cx="12" cy="13" r="4" stroke={c} strokeWidth="1.6"/></svg>,
+  gallery:(s=28,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke={c} strokeWidth="1.6"/><circle cx="9" cy="9" r="1.6" stroke={c} strokeWidth="1.6"/><path d="M21 16l-5-5-9 9" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/></svg>,
+  play:(s=18,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M8 5l12 7-12 7V5z" fill={c}/></svg>,
+  pause:(s=18,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><rect x="6" y="5" width="4" height="14" rx="1" fill={c}/><rect x="14" y="5" width="4" height="14" rx="1" fill={c}/></svg>,
+  back:(s=20,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  bell:(s=18,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15L6 16z" stroke={c} strokeWidth="1.6" strokeLinejoin="round"/><path d="M10 20a2 2 0 0 0 4 0" stroke={c} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  arrowR:(s=16,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  bolt:(s=14,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill={c}/></svg>,
+  fullscreen:(s=16,c='currentColor')=><svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+};
+
+// ── Wordmark ────────────────────────────────────────────────────
+function Wordmark({size=22}) {
+  return <div style={{display:'inline-flex',alignItems:'baseline',color:C.text,lineHeight:1,fontFamily:F.body,fontWeight:700,fontSize:size,letterSpacing:'-0.02em'}}>
+    <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:size*1.15,marginRight:1}}>(r)</span>
+    <span>elevē</span>
+  </div>;
+}
+
+// ── Status bar ──────────────────────────────────────────────────
+function StatusBar() {
+  const now = new Date();
+  const t = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  return <div style={{height:54,padding:'18px 28px 0',display:'flex',justifyContent:'space-between',alignItems:'center',color:'#fff',fontFamily:'-apple-system,system-ui',fontSize:16,fontWeight:600,position:'relative',zIndex:20}}>
+    <span>{t}</span>
+    <div style={{display:'flex',gap:6,alignItems:'center'}}>
+      <svg width="18" height="11" viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="0.5" fill="#fff"/><rect x="5" y="5" width="3" height="6" rx="0.5" fill="#fff"/><rect x="10" y="2.5" width="3" height="8.5" rx="0.5" fill="#fff"/><rect x="15" y="0" width="3" height="11" rx="0.5" fill="#fff"/></svg>
+      <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0.5" y="0.5" width="20" height="10" rx="3" stroke="#fff" strokeOpacity="0.5" fill="none"/><rect x="2" y="2" width="17" height="7" rx="1.5" fill="#fff"/><rect x="21" y="3.5" width="1.5" height="4" rx="0.5" fill="#fff" fillOpacity="0.5"/></svg>
+    </div>
+  </div>;
+}
+
+// ── Bottom nav ──────────────────────────────────────────────────
+function BottomNav({active, onTap}) {
+  const items = [
+    {id:'home',label:'Home',icon:Ico.home},
+    {id:'progress',label:'Progress',icon:Ico.chart},
+    {id:'upload',label:'Upload',icon:Ico.plus,primary:true},
+    {id:'profile',label:'Profile',icon:Ico.user},
+  ];
+  return <div style={{position:'absolute',bottom:0,left:0,right:0,paddingBottom:24,background:'linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 40%,#000 80%)',paddingTop:18,zIndex:30}}>
+    <div style={{margin:'0 16px',height:64,borderRadius:28,background:'rgba(20,20,24,0.85)',backdropFilter:'blur(20px)',WebkitBackdropFilter:'blur(20px)',border:`1px solid ${C.border}`,display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr',alignItems:'center',padding:'0 8px'}}>
+      {items.map(it => {
+        const on = it.id===active;
+        if(it.primary) return <div key={it.id} style={{display:'flex',justifyContent:'center'}}>
+          <button onClick={()=>onTap?.(it.id)} style={{width:52,height:52,borderRadius:26,border:'none',background:C.grad,color:'#fff',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 8px 20px rgba(224,64,160,0.4),0 4px 10px rgba(91,63,232,0.35)'}}>
+            {Ico.plus(28,'#fff')}
+          </button>
+        </div>;
+        return <button key={it.id} onClick={()=>onTap?.(it.id)} style={{background:'transparent',border:'none',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:4,color:on?C.text:C.dimmer,fontFamily:F.body,fontSize:10,fontWeight:500,letterSpacing:0.2}}>
+          {it.icon(22,on?C.text:C.dimmer)}
+          <span>{it.label}</span>
+        </button>;
+      })}
+    </div>
+  </div>;
+}
+
+// ── Stat chip ───────────────────────────────────────────────────
+function StatChip({label,value,unit,accent,mono}) {
+  return <div style={{borderRadius:18,padding:'14px 12px',background:C.card,border:`1px solid ${C.border}`,position:'relative',overflow:'hidden'}}>
+    {accent&&<div style={{position:'absolute',top:0,left:0,width:3,height:'100%',background:accent}}/>}
+    <div style={{fontSize:9,fontFamily:F.mono,color:C.dim,letterSpacing:1.2,textTransform:'uppercase',marginBottom:6}}>{label}</div>
+    <div style={{fontSize:mono?16:24,fontWeight:700,letterSpacing:'-0.02em',lineHeight:1,fontFamily:mono?F.mono:F.body}}>{value}</div>
+    <div style={{fontSize:10,color:C.dim,marginTop:4,fontFamily:F.mono,letterSpacing:0.5}}>{unit}</div>
+  </div>;
+}
+
+// ── Score badge ─────────────────────────────────────────────────
+function ScoreBadge({score}) {
+  const tone = score>=80?C.green:score>=70?'#F4A77A':C.pink;
+  return <div style={{width:44,height:44,borderRadius:22,border:`1.5px solid ${tone}`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+    <span style={{fontSize:14,fontWeight:700,color:tone,letterSpacing:'-0.02em'}}>{score}</span>
+  </div>;
+}
+
+// ── Video thumbnail ─────────────────────────────────────────────
+function Thumb({hue='pink',small=false}) {
+  const s = small?{width:56,height:56,borderRadius:12}:{width:88,height:110,borderRadius:14};
+  const bg = hue==='pink'?'linear-gradient(135deg,#E040A0,#5B3FE8)':hue==='purple'?'linear-gradient(135deg,#5B3FE8,#2E4FD9)':C.grad;
+  return <div style={{...s,position:'relative',overflow:'hidden',background:bg,flexShrink:0}}>
+    <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at center,rgba(0,0,0,0.5),transparent 70%)'}}/>
+    <div style={{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)'}}>{Ico.play(small?12:11,'#fff')}</div>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 1 — HOME
+// ═══════════════════════════════════════════════════════════════
+function HomeScreen({sessions, nav, openSession}) {
+  const sc   = avgScore(sessions);
+  const tf   = topFix(sessions);
+  const last = sessions[0];
+  const HUES = ['pink','purple','mix'];
+
+  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,overflowX:'hidden',position:'relative'}}>
+    <StatusBar/>
+    <div style={{padding:'8px 20px 140px',overflowY:'auto'}}>
+
+      {/* Header */}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:22,marginTop:8}}>
+        <div>
+          <div style={{fontSize:13,color:C.dim,fontFamily:F.mono,textTransform:'uppercase',letterSpacing:1.2,marginBottom:6}}>
+            {new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}
+          </div>
+          <div style={{fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.05,fontSize:24}}>
+            Bonsoir, <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:31}}>Ana</span>
+          </div>
+        </div>
+        <div style={{width:40,height:40,borderRadius:20,background:C.cardHi,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
+          {Ico.bell(18,C.text)}
+          <div style={{position:'absolute',top:8,right:9,width:7,height:7,borderRadius:4,background:C.pink,border:'1.5px solid #000'}}/>
+        </div>
+      </div>
+
+      {/* Exam badge */}
+      <div style={{display:'inline-flex',alignItems:'center',gap:10,marginBottom:20,padding:'8px 14px 8px 8px',borderRadius:999,background:'rgba(91,63,232,0.12)',border:'1px solid rgba(91,63,232,0.35)'}}>
+        <div style={{width:26,height:26,borderRadius:13,background:C.grad,display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#fff" strokeWidth="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
+        </div>
+        <div style={{fontSize:13,fontWeight:500}}>
+          <span style={{color:C.text}}>23 days </span>
+          <span style={{color:C.dim}}>to RAD Grade 6 exam</span>
+        </div>
+      </div>
+
+      {/* Hero score */}
+      <div style={{borderRadius:28,padding:22,marginBottom:16,background:C.card,border:`1px solid ${C.border}`,position:'relative',overflow:'hidden'}}>
+        <div style={{position:'absolute',top:-60,right:-60,width:220,height:220,borderRadius:110,background:C.grad,filter:'blur(60px)',opacity:0.35}}/>
+        <div style={{position:'relative',display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+          <div>
+            <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,textTransform:'uppercase',letterSpacing:1.4}}>Technique Score</div>
+            <div style={{display:'flex',alignItems:'baseline',marginTop:10,gap:4}}>
+              <span style={{fontSize:76,fontWeight:700,letterSpacing:'-0.04em',lineHeight:0.9}}>{sc}</span>
+              <span style={{fontSize:22,color:C.dim,fontWeight:500}}>/100</span>
+            </div>
+            <div style={{display:'inline-flex',alignItems:'center',gap:6,marginTop:14,padding:'5px 10px',borderRadius:999,background:'rgba(46,200,120,0.12)',border:'1px solid rgba(46,200,120,0.3)',color:C.green,fontSize:11,fontFamily:F.mono,letterSpacing:0.5}}>
+              <span>↑</span><span>{sessions.length} sessions total</span>
+            </div>
+          </div>
+          {/* Ring */}
+          <div style={{position:'relative',width:110,height:110}}>
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#F4A77A"/><stop offset="40%" stopColor="#E040A0"/><stop offset="100%" stopColor="#5B3FE8"/></linearGradient></defs>
+              <circle cx="55" cy="55" r="46" stroke="rgba(255,255,255,0.08)" strokeWidth="8" fill="none"/>
+              <circle cx="55" cy="55" r="46" stroke="url(#rg)" strokeWidth="8" fill="none"
+                strokeDasharray={`${(sc/100)*2*Math.PI*46} ${2*Math.PI*46}`}
+                strokeLinecap="round" transform="rotate(-90 55 55)"/>
+            </svg>
+            <div style={{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+              <div style={{fontSize:9,fontFamily:F.mono,color:C.dim,letterSpacing:1,textTransform:'uppercase'}}>Level</div>
+              <div style={{fontFamily:F.serif,fontStyle:'italic',fontSize:22,fontWeight:500,marginTop:-2}}>Avancé</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stat chips */}
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:18}}>
+        <StatChip label="Streak"   value={String(streak(sessions))} unit="days"    accent={C.pink}/>
+        <StatChip label="Sessions" value={String(weekSessions(sessions))} unit="this wk" accent={C.purple}/>
+        <StatChip label="Top fix"  value={tf.v} unit={tf.u} mono/>
+      </div>
+
+      {/* Last session */}
+      {last ? (
+        <div style={{marginBottom:14}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
+            <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,textTransform:'uppercase',letterSpacing:1.4}}>Last Session</div>
+            <button onClick={()=>nav('upload')} style={{fontSize:12,color:C.dim,background:'none',border:'none',cursor:'pointer'}}>See all →</button>
+          </div>
+          <div onClick={()=>openSession(last)} style={{borderRadius:22,padding:12,background:C.card,border:`1px solid ${C.border}`,display:'flex',gap:12,alignItems:'center',cursor:'pointer'}}>
+            <Thumb hue="pink"/>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:10,fontFamily:F.mono,color:C.dim,letterSpacing:1,textTransform:'uppercase',marginBottom:6}}>{fmtDate(last.created_at)}</div>
+              <div style={{fontSize:16,fontWeight:600,marginBottom:4,letterSpacing:'-0.01em'}}>{fmtEx(last.exercise_id)}</div>
+              <div style={{fontSize:12,color:C.dim,marginBottom:10,fontFamily:F.mono}}>{last.corrections_count} corrections · {last.duration_seconds}s</div>
+              <button style={{display:'inline-flex',alignItems:'center',gap:6,background:'transparent',color:C.text,fontSize:12,fontWeight:600,border:`1px solid ${C.borderHi}`,borderRadius:999,padding:'7px 14px',cursor:'pointer',fontFamily:F.body}}>
+                Review {Ico.arrowR(12,C.text)}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div style={{borderRadius:22,padding:24,background:C.card,border:`1px solid ${C.border}`,textAlign:'center',marginBottom:14}}>
+          <div style={{fontSize:14,color:C.dim,marginBottom:12}}>No sessions yet.</div>
+          <button onClick={()=>nav('upload')} style={{background:C.grad,color:'#fff',border:'none',borderRadius:999,padding:'10px 22px',fontSize:13,fontWeight:600,cursor:'pointer',fontFamily:F.body}}>
+            Upload first video
+          </button>
+        </div>
+      )}
+
+      {/* Today's focus */}
+      {sessions.length>0 && (() => {
+        const cue = sessions[0]?.report?.corrections?.find(c=>c.severity==='major')?.cue_en
+                 || sessions[0]?.report?.corrections?.[0]?.cue_en
+                 || 'Keep working on technique consistency.';
+        return (
+          <div style={{borderRadius:22,padding:16,background:C.card,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',gap:14}}>
+            <div style={{width:48,height:48,borderRadius:14,overflow:'hidden',flexShrink:0}}><GrainBand height={48} radius={14}/></div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:11,fontFamily:F.mono,color:C.dim,letterSpacing:1.2,textTransform:'uppercase',marginBottom:2}}>Today's focus</div>
+              <div style={{fontSize:14,fontWeight:500,lineHeight:1.4}}>{cue}</div>
+            </div>
+          </div>
+        );
+      })()}
+    </div>
+    <BottomNav active="home" onTap={nav}/>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 2 — UPLOAD
+// ═══════════════════════════════════════════════════════════════
+const EXERCISES = [
+  {id:'plie',            label:'Plié',           label_pt:'Plié'},
+  {id:'battement_tendu', label:'Tendu',          label_pt:'Tendu'},
+  {id:'releve',          label:'Relevé',         label_pt:'Relevé'},
+  {id:'retire_passe',    label:'Retiré / Passé', label_pt:'Retiré / Passé'},
+  {id:'fondu',           label:'Fondu',          label_pt:'Fondu'},
+  {id:'arabesque',       label:'Arabesque',      label_pt:'Arabesque'},
+  {id:'grand_battement', label:'Grand Battement',label_pt:'Grand Battement'},
+  {id:'port_de_bras',    label:'Port de Bras',   label_pt:'Port de Bras'},
+  {id:'glissade',        label:'Glissade',       label_pt:'Glissade'},
+  {id:'battement_degage',label:'Dégagé',         label_pt:'Dégagé'},
+  {id:'rond_de_jambe',   label:'Rond de Jambe',  label_pt:'Rond de Jambe'},
+  {id:'developpe',       label:'Développé',      label_pt:'Développé'},
+  {id:'echappe',         label:'Échappé',        label_pt:'Échappé'},
+  {id:'assemble',        label:'Assemblé',       label_pt:'Assemblé'},
+  {id:'frappe',          label:'Frappé',         label_pt:'Frappé'},
+  {id:'attitude',        label:'Attitude',       label_pt:'Attitude'},
+];
+
+function UploadScreen({sessions, nav, openSession, onDone, token}) {
+  const [step, setStep]         = useState(1); // 1=choose exercise, 2=upload video
+  const [file, setFile]         = useState(null);
+  const [busy, setBusy]         = useState(false);
+  const [prog, setProg]         = useState(0);
+  const [msg,  setMsg]          = useState('');
+  const [exercise, setExercise] = useState(null);
+  const ref = useRef();
+  const HUES = ['pink','purple','mix'];
+  const STEPS = [[10,'A carregar vídeo…'],[35,'A extrair landmarks…'],[65,'A analisar movimento…'],[90,'A gerar relatório…']];
+
+  async function run() {
+    if(!file||busy||!exercise) return;
+    setBusy(true); setProg(10); setMsg(STEPS[0][1]);
+    let i=0; const tick=setInterval(()=>{i=Math.min(i+1,3);setProg(STEPS[i][0]);setMsg(STEPS[i][1]);},2600);
+    try {
+      const fd=new FormData(); fd.append('video',file); fd.append('exercise', exercise);
+      const headers = token ? {'Authorization':`Bearer ${token}`} : {};
+      const r=await fetch('/analyse',{method:'POST',body:fd,headers});
+      const d=await r.json();
+      clearInterval(tick); setProg(100); setMsg('Pronto.');
+      if(d.error){alert(d.error);}else{onDone(d);}
+    } catch(e){clearInterval(tick);alert('Upload falhou: '+e.message);}
+    finally{setBusy(false);}
+  }
+
+  function pickExercise(id) {
+    setExercise(id);
+    setStep(2);
+  }
+
+  // ── STEP 1: Choose exercise ──────────────────────────────────────
+  if(step===1) return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,overflowX:'hidden'}}>
+    <StatusBar/>
+    <div style={{padding:'8px 20px 60px'}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8,marginBottom:28}}>
+        <button onClick={()=>nav('home')} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>Cancelar</button>
+        <div style={{fontSize:14,fontWeight:600}}>Nova sessão</div>
+        <div style={{width:60}}/>
+      </div>
+
+      {/* Step indicator */}
+      <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:24}}>
+        <div style={{width:24,height:24,borderRadius:'50%',background:C.grad,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700}}>1</div>
+        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Escolhe o exercício</div>
+        <div style={{flex:1,height:1,background:C.border,margin:'0 4px'}}/>
+        <div style={{width:24,height:24,borderRadius:'50%',background:C.card,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700,color:C.dim}}>2</div>
+        <div style={{fontSize:12,color:C.dim}}>Vídeo</div>
+      </div>
+
+      <h1 style={{fontWeight:700,letterSpacing:'-0.025em',margin:'0 0 6px',lineHeight:1.05,fontSize:26}}>
+        Que exercício <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>praticaste</span>?
+      </h1>
+      <div style={{fontSize:13,color:C.dim,marginBottom:24}}>Seleciona antes de carregar o vídeo.</div>
+
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+        {EXERCISES.map(ex=>(
+          <button key={ex.id} onClick={()=>pickExercise(ex.id)} style={{
+            padding:'16px 14px',borderRadius:14,background:C.card,
+            border:`1px solid ${C.border}`,color:C.text,fontFamily:F.body,
+            fontSize:13,fontWeight:500,cursor:'pointer',textAlign:'left',
+            letterSpacing:'-0.01em',transition:'all 0.15s',
+          }}
+          onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(123,110,246,0.4)';e.currentTarget.style.background=C.cardHi;}}
+          onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.background=C.card;}}
+          >
+            {ex.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>;
+
+  // ── STEP 2: Upload video ─────────────────────────────────────────
+  const exLabel = EXERCISES.find(e=>e.id===exercise)?.label || '';
+  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,overflowX:'hidden',position:'relative'}}>
+    <StatusBar/>
+    <div style={{padding:'8px 20px 140px',overflowY:'auto'}}>
+
+      {/* Header */}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8,marginBottom:28}}>
+        <button onClick={()=>{setStep(1);setFile(null);}} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>← Voltar</button>
+        <div style={{fontSize:14,fontWeight:600}}>Nova sessão</div>
+        <div style={{width:60}}/>
+      </div>
+
+      {/* Step indicator */}
+      <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:24}}>
+        <div style={{width:24,height:24,borderRadius:'50%',background:'rgba(91,209,140,0.2)',border:'1px solid rgba(91,209,140,0.5)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700,color:C.green}}>✓</div>
+        <div style={{fontSize:12,color:C.dim}}>{exLabel}</div>
+        <div style={{flex:1,height:1,background:C.grad,margin:'0 4px'}}/>
+        <div style={{width:24,height:24,borderRadius:'50%',background:C.grad,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700}}>2</div>
+        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Carrega o vídeo</div>
+      </div>
+
+      <h1 style={{fontWeight:700,letterSpacing:'-0.025em',margin:'0 0 24px',lineHeight:1.05,fontSize:26}}>
+        Mostra o teu <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>movimento</span>.
+      </h1>
+
+      {/* Upload tile */}
+      <div onClick={()=>!busy&&ref.current?.click()} style={{borderRadius:20,padding:22,background:file?'rgba(78,201,148,0.07)':C.card,border:`1.5px solid ${file?'rgba(78,201,148,0.35)':'rgba(123,110,246,0.25)'}`,display:'flex',alignItems:'center',gap:16,cursor:'pointer',marginBottom:16,transition:'all 0.2s'}}>
+        <div style={{width:48,height:48,borderRadius:14,background:C.accent,border:`1px solid rgba(123,110,246,0.3)`,flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center'}}>{Ico.gallery(24,C.purple)}</div>
+        <div>
+          <div style={{fontSize:file?14:16,fontWeight:600,letterSpacing:'-0.01em',marginBottom:3,wordBreak:'break-all'}}>{file?file.name.slice(0,28)+'…':'Escolher da biblioteca'}</div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:F.mono}}>{file?`${(file.size/1024/1024).toFixed(1)} MB`:'MP4 · MOV · max 500MB'}</div>
+        </div>
+      </div>
+      <input ref={ref} type="file" accept="video/*" onChange={e=>e.target.files[0]&&setFile(e.target.files[0])}/>
+
+      {/* Analyse button */}
+      {file && !busy && (
+        <button onClick={run} style={{width:'100%',padding:16,border:'none',borderRadius:14,background:C.grad,color:'#fff',fontFamily:F.body,fontSize:15,fontWeight:600,letterSpacing:0.2,cursor:'pointer',marginBottom:20}}>
+          Analisar {exLabel}
+        </button>
+      )}
+
+      {/* Progress */}
+      {busy && (
+        <div style={{marginBottom:20}}>
+          <div style={{height:3,background:C.border,borderRadius:2,overflow:'hidden',marginBottom:10}}>
+            <div style={{height:'100%',background:C.grad,width:`${prog}%`,transition:'width 2.5s ease',borderRadius:2}}/>
+          </div>
+          <div style={{fontSize:13,color:C.dim,fontStyle:'italic'}}>{msg}</div>
+        </div>
+      )}
+
+      {/* Tip */}
+      <div style={{marginTop:8,padding:'12px 14px',borderRadius:16,background:'rgba(91,63,232,0.08)',border:'1px solid rgba(91,63,232,0.2)',display:'flex',alignItems:'flex-start',gap:10}}>
+        <div style={{marginTop:1}}>{Ico.bolt(14,C.pink)}</div>
+        <div style={{fontSize:12,color:'rgba(255,255,255,0.75)',lineHeight:1.4}}>
+          <span style={{color:C.text,fontWeight:600}}>Boa iluminação</span> melhora a precisão. Enquadra o corpo inteiro — cabeça aos pés.
+        </div>
+      </div>
+    </div>
+    <BottomNav active="upload" onTap={nav}/>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SKELETON DIAGRAM
+// ═══════════════════════════════════════════════════════════════
+
+const JOINTS = {
+  head:           [50,  7],
+  l_shoulder:     [33, 22], r_shoulder:     [67, 22],
+  l_elbow:        [22, 38], r_elbow:        [78, 38],
+  l_wrist:        [17, 52], r_wrist:        [83, 52],
+  l_hip:          [38, 58], r_hip:          [62, 58],
+  l_knee:         [36, 78], r_knee:         [64, 78],
+  l_ankle:        [37, 96], r_ankle:        [63, 96],
+  l_heel:         [34,102], r_heel:         [60,102],
+  l_toe:          [42,106], r_toe:          [68,106],
+};
+
+const BONES = [
+  ['head','l_shoulder'],['head','r_shoulder'],
+  ['l_shoulder','r_shoulder'],
+  ['l_shoulder','l_elbow'],['l_elbow','l_wrist'],
+  ['r_shoulder','r_elbow'],['r_elbow','r_wrist'],
+  ['l_shoulder','l_hip'],['r_shoulder','r_hip'],
+  ['l_hip','r_hip'],
+  ['l_hip','l_knee'],['l_knee','l_ankle'],['l_ankle','l_heel'],['l_heel','l_toe'],
+  ['r_hip','r_knee'],['r_knee','r_ankle'],['r_ankle','r_heel'],['r_heel','r_toe'],
+];
+
+// joints to highlight per correction id
+const CORRECTION_JOINTS = {
+  plie_001: ['l_hip','l_knee','l_toe','r_hip','r_knee','r_toe'],
+  plie_002: ['l_hip','r_hip','l_shoulder','r_shoulder'],
+  plie_003: ['l_heel','l_ankle','r_heel','r_ankle'],
+  plie_005: ['l_heel','l_ankle','r_heel','r_ankle'],
+  plie_006: ['l_hip','l_knee','r_hip','r_knee'],
+  plie_007: ['l_hip','l_knee','r_hip','r_knee'],
+  plie_008: ['l_shoulder','r_shoulder','l_hip','r_hip'],
+  plie_009: ['l_hip','r_hip'],
+  plie_011: ['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle','l_shoulder','r_shoulder'],
+  tendu_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  tendu_002:['l_hip','r_hip'],
+  tendu_003:['l_ankle','l_heel','l_toe','r_ankle','r_heel','r_toe'],
+  tendu_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  arab_001: ['r_hip','r_knee','r_ankle'],
+  arab_002: ['l_hip','r_hip'],
+  arab_003: ['l_shoulder','r_shoulder','l_hip','r_hip'],
+  arab_004: ['l_shoulder','r_shoulder'],
+  bras_001: ['l_shoulder','r_shoulder'],
+  bras_002: ['l_shoulder','l_elbow','l_wrist','r_shoulder','r_elbow','r_wrist'],
+  bras_003: ['l_elbow','l_wrist','r_elbow','r_wrist'],
+  gbat_001: ['l_hip','r_hip'],
+  gbat_002: ['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  gbat_003: ['l_shoulder','r_shoulder','l_hip','r_hip'],
+  releve_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  releve_002:['l_hip','r_hip'],
+  releve_003:['l_heel','l_ankle','r_heel','r_ankle'],
+  releve_004:['l_heel','l_ankle','r_heel','r_ankle'],
+  releve_005:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  retire_001:['l_hip','l_knee','r_hip','r_knee'],
+  retire_002:['l_hip','r_hip'],
+  retire_003:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  fondu_001: ['l_hip','l_knee','l_toe','r_hip','r_knee','r_toe'],
+  fondu_002: ['l_hip','r_hip'],
+  fondu_003: ['l_shoulder','r_shoulder','l_hip','r_hip'],
+  tendu_005:['l_hip','r_hip'],
+  tendu_006:['l_hip','r_hip','l_shoulder','r_shoulder'],
+  tendu_007:['l_elbow','l_wrist','r_elbow','r_wrist'],
+  retire_004:['l_knee','r_knee','l_hip','r_hip'],
+  retire_005:['l_shoulder','r_shoulder'],
+  retire_006:['l_hip','r_hip'],
+  fondu_004:['r_hip','r_knee','r_ankle'],
+  fondu_005:['l_hip','r_hip'],
+  fondu_006:['head','l_hip','r_hip'],
+  gbat_004:['r_hip','r_knee','r_ankle'],
+  gbat_005:['l_hip','r_hip'],
+  gbat_006:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  glissade_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  glissade_002:['l_knee','l_toe','r_knee','r_toe'],
+  glissade_003:['l_hip','r_hip'],
+  glissade_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  degage_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  degage_002:['l_hip','r_hip'],
+  degage_003:['l_ankle','l_heel','l_toe','r_ankle','r_heel','r_toe'],
+  degage_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  rond_001:['l_hip','r_hip'],
+  rond_002:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  rond_003:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  rond_004:['l_hip','r_hip'],
+  dev_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  dev_002:['l_hip','r_hip'],
+  dev_003:['r_hip','r_knee','r_ankle'],
+  dev_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  dev_005:['l_shoulder','r_shoulder'],
+  echappe_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  echappe_002:['l_toe','r_toe','l_ankle','r_ankle'],
+  echappe_003:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  echappe_004:['l_hip','r_hip'],
+  echappe_005:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  assemble_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  assemble_002:['l_toe','r_toe','l_ankle','r_ankle'],
+  assemble_003:['l_hip','r_hip'],
+  assemble_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  frappe_001:['l_hip','l_knee','l_ankle','r_hip','r_knee','r_ankle'],
+  frappe_002:['l_hip','r_hip'],
+  frappe_003:['l_ankle','l_heel','l_toe','r_ankle','r_heel','r_toe'],
+  frappe_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  attitude_001:['r_hip','r_knee','r_ankle'],
+  attitude_002:['l_hip','l_knee','l_ankle'],
+  attitude_003:['l_hip','r_hip'],
+  attitude_004:['l_shoulder','r_shoulder','l_hip','r_hip'],
+  attitude_005:['l_shoulder','r_shoulder'],
+};
+
+function SkeletonDiagram({correctionId}) {
+  const hi = new Set(CORRECTION_JOINTS[correctionId] || []);
+  const boneHi = BONES.filter(([a,b]) => hi.has(a) || hi.has(b));
+  const boneBase = BONES.filter(([a,b]) => !hi.has(a) && !hi.has(b));
+  const uid = correctionId || 'sk';
+
+  return (
+    <svg viewBox="0 0 100 115" width="90" height="104" style={{display:'block',overflow:'visible'}}>
+      <defs>
+        <linearGradient id={`g-${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#E040A0"/>
+          <stop offset="100%" stopColor="#5B3FE8"/>
+        </linearGradient>
+      </defs>
+      {/* base skeleton */}
+      {boneBase.map(([a,b],i)=>{
+        const [x1,y1]=JOINTS[a]; const [x2,y2]=JOINTS[b];
+        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(255,255,255,0.12)" strokeWidth="2" strokeLinecap="round"/>;
+      })}
+      {/* highlighted bones */}
+      {boneHi.map(([a,b],i)=>{
+        const [x1,y1]=JOINTS[a]; const [x2,y2]=JOINTS[b];
+        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={`url(#g-${uid})`} strokeWidth="2.5" strokeLinecap="round"/>;
+      })}
+      {/* all joints */}
+      {Object.entries(JOINTS).map(([name,[x,y]])=>{
+        const isHi = hi.has(name);
+        return <circle key={name} cx={x} cy={y} r={name==='head'?6:3}
+          fill={isHi ? '#E040A0' : 'rgba(255,255,255,0.18)'}
+          stroke={isHi ? 'rgba(255,255,255,0.5)' : 'none'}
+          strokeWidth="1"
+        />;
+      })}
+    </svg>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 3 — ANALYSIS
+// ═══════════════════════════════════════════════════════════════
+function AnalysisScreen({report, onBack}) {
+  const [pin,  setPin]      = useState(0);
+  const [done, setDone]     = useState(()=>new Set());
+  const [play, setPlay]     = useState(false);
+  const vidRef = useRef();
+
+  const corrections = (report?.corrections||[])
+    .filter(c=>(c.confidence??1)>=0.4)
+    .map(c=>({
+      id:  c.id||'',
+      t:   c.first_seen_ts||'00:00',
+      sec: Math.round((c.first_seen_ms||0)/1000),
+      body:BODY[c.id]||c.id,
+      cat: fmtEx(c.exercise_id||c.id?.split('_')[0]||''),
+      conf:Math.round((c.confidence??1)*100),
+      sev: c.severity||'warning',
+      en:  c.cue_en||'',
+      pt:  c.cue_pt||'',
+    }));
+
+  const total = report?.video_duration_s||30;
+  const cur   = corrections[pin];
+  const isDone= done.has(pin);
+
+  function toggle(i){setDone(p=>{const n=new Set(p);n.has(i)?n.delete(i):n.add(i);return n;});}
+  function seek(s){if(vidRef.current){vidRef.current.currentTime=s;vidRef.current.play().catch(()=>{});}}
+
+  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,overflowX:'hidden'}}>
+    <StatusBar/>
+    <div style={{padding:'8px 0 48px',overflowY:'auto'}}>
+
+      {/* Top bar */}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 20px 14px'}}>
+        <button onClick={onBack} style={{display:'flex',alignItems:'center',gap:4,padding:'6px 10px 6px 4px',background:'transparent',border:'none',color:C.text,cursor:'pointer',fontSize:14,fontFamily:F.body}}>
+          {Ico.back(20,'#fff')} Back
+        </button>
+        <div style={{textAlign:'center'}}>
+          <div style={{fontSize:13,fontWeight:600}}>{fmtEx(report?.exercise_id||'All Exercises')}</div>
+          <div style={{fontSize:10,color:C.dim,fontFamily:F.mono,letterSpacing:0.5}}>
+            {report?.corrections_count||corrections.length} CORRECTIONS · {report?.score||0}/100
+          </div>
+        </div>
+        <div style={{width:36,height:36,borderRadius:18,background:C.cardHi,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.6" fill="#fff"/><circle cx="12" cy="12" r="1.6" fill="#fff"/><circle cx="19" cy="12" r="1.6" fill="#fff"/></svg>
+        </div>
+      </div>
+
+      {/* Video */}
+      <div style={{padding:'0 20px',marginBottom:18}}>
+        <div style={{aspectRatio:'16/9',borderRadius:20,position:'relative',overflow:'hidden',background:'#0a0a0e'}}>
+          {report?.video_url
+            ? <video ref={vidRef} src={report.video_url} style={{width:'100%',height:'100%',objectFit:'cover'}} onPlay={()=>setPlay(true)} onPause={()=>setPlay(false)} playsInline/>
+            : <>
+                <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at 50% 35%,#2a3a55,#0a0a14 70%)'}}/>
+                <svg viewBox="0 0 200 113" style={{position:'absolute',inset:0,width:'100%',height:'100%'}}>
+                  <defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#5B3FE8"/><stop offset="100%" stopColor="#1a0a30"/></linearGradient></defs>
+                  <rect x="20" y="78" width="160" height="2" fill="rgba(255,255,255,0.25)"/>
+                  <ellipse cx="100" cy="38" rx="6" ry="7" fill="url(#dg)"/>
+                  <path d="M100 45 L97 80 L94 105 M100 45 L103 80 L106 105 M100 50 L82 65 M100 50 L120 60 L132 50" stroke="url(#dg)" strokeWidth="6" strokeLinecap="round" fill="none"/>
+                </svg>
+              </>
+          }
+          <div style={{position:'absolute',top:12,left:12,fontFamily:F.mono,fontSize:10,color:'#fff',background:'rgba(0,0,0,0.5)',padding:'3px 7px',borderRadius:6,letterSpacing:0.5}}>
+            {cur?.t||'00:00'} / {fmtTs(total)}
+          </div>
+          {report?.video_url && (
+            <button onClick={()=>{play?vidRef.current.pause():vidRef.current.play();}} style={{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)',width:56,height:56,borderRadius:28,background:'rgba(0,0,0,0.55)',border:'1px solid rgba(255,255,255,0.25)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',color:'#fff'}}>
+              {play?Ico.pause(20,'#fff'):Ico.play(20,'#fff')}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div style={{padding:'0 20px',marginBottom:14}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
+          <div style={{fontSize:10,color:C.dim,fontFamily:F.mono,letterSpacing:1.4,textTransform:'uppercase'}}>Correction Timeline</div>
+          <div style={{display:'flex',gap:4}}>
+            {['Major','All'].map((t,i)=>
+              <div key={t} style={{fontSize:10,fontFamily:F.mono,padding:'4px 9px',borderRadius:999,background:i===0?'rgba(224,64,160,0.15)':'transparent',border:`1px solid ${i===0?'rgba(224,64,160,0.4)':C.border}`,color:i===0?'#fff':C.dim,letterSpacing:0.5}}>{t}</div>
+            )}
+          </div>
+        </div>
+        <div style={{position:'relative',height:56,borderRadius:16,background:C.card,border:`1px solid ${C.border}`,padding:'0 14px',display:'flex',alignItems:'center'}}>
+          <div style={{position:'relative',flex:1,height:4,borderRadius:2,background:'rgba(255,255,255,0.08)'}}>
+            {cur&&<div style={{position:'absolute',left:0,top:0,height:'100%',width:`${Math.min(cur.sec/total*100,100)}%`,background:'linear-gradient(90deg,#5B3FE8,#E040A0)',borderRadius:2}}/>}
+            {cur&&<div style={{position:'absolute',left:`${Math.min(cur.sec/total*100,100)}%`,top:'50%',transform:'translate(-50%,-50%)',width:14,height:14,borderRadius:7,background:'#fff',boxShadow:'0 0 0 3px rgba(255,255,255,0.15),0 2px 8px rgba(0,0,0,0.4)'}}/>}
+            {corrections.map((c,i)=>
+              <button key={i} onClick={()=>{setPin(i);seek(c.sec);}} style={{position:'absolute',left:`${Math.min(c.sec/total*100,100)}%`,top:'50%',transform:'translate(-50%,-50%)',width:0,height:0,padding:0,border:'none',background:'transparent',cursor:'pointer'}}>
+                <div style={{width:i===pin?12:8,height:i===pin?12:8,borderRadius:'50%',background:c.sev==='major'?C.pink:C.purple,border:i===pin?'2px solid #fff':'1.5px solid #000',boxShadow:i===pin?`0 0 0 4px ${c.sev==='major'?'rgba(224,64,160,0.25)':'rgba(91,63,232,0.25)'}`:undefined,transition:'all 0.15s'}}/>
+              </button>
+            )}
+          </div>
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',marginTop:6,padding:'0 14px',fontFamily:F.mono,fontSize:9,color:C.dimmer,letterSpacing:0.3}}>
+          {[0,0.25,0.5,0.75,1].map(r=><span key={r}>{fmtTs(total*r)}</span>)}
+        </div>
+      </div>
+
+      {/* Active correction card */}
+      {cur&&(
+        <div style={{padding:'0 20px',marginBottom:16}}>
+          <div style={{borderRadius:22,padding:18,background:isDone?'linear-gradient(180deg,rgba(91,209,140,0.08),rgba(91,209,140,0.03))':'linear-gradient(180deg,rgba(224,64,160,0.10),rgba(91,63,232,0.06))',border:`1px solid ${isDone?'rgba(91,209,140,0.3)':'rgba(224,64,160,0.3)'}`,position:'relative',overflow:'hidden',transition:'all 0.2s'}}>
+            <div style={{position:'absolute',left:0,top:0,bottom:0,width:3,background:isDone?C.green:'linear-gradient(180deg,#E040A0,#5B3FE8)'}}/>
+            <div style={{display:'flex',gap:12,alignItems:'flex-start',marginBottom:12}}>
+              <div style={{flex:1}}>
+                <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:8,alignItems:'center'}}>
+                  <span style={{fontSize:9,fontFamily:F.mono,padding:'4px 8px',borderRadius:4,background:'rgba(224,64,160,0.18)',color:'#FFB3D9',letterSpacing:0.6,textTransform:'uppercase'}}>{cur.cat}</span>
+                  <span style={{fontSize:9,fontFamily:F.mono,padding:'4px 8px',borderRadius:4,background:'rgba(91,209,140,0.12)',color:'#7AE3A8',letterSpacing:0.6}}>CONF {cur.conf}%</span>
+                  <span style={{fontSize:9,fontFamily:F.mono,padding:'4px 8px',borderRadius:4,background:'rgba(255,255,255,0.06)',color:C.dim,letterSpacing:0.6,textTransform:'uppercase'}}>{cur.sev}</span>
+                  <span style={{fontFamily:F.mono,fontSize:12,fontWeight:600,letterSpacing:'-0.02em',color:C.dim,marginLeft:'auto'}}>{cur.t}</span>
+                </div>
+                <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,letterSpacing:0.6,textTransform:'uppercase',marginBottom:6}}>{cur.body}</div>
+                <div style={{fontSize:17,lineHeight:1.35,fontWeight:500,letterSpacing:'-0.01em',marginBottom:cur.pt?6:14,textDecoration:isDone?'line-through':'none',textDecorationColor:'rgba(255,255,255,0.3)'}}>{cur.en}</div>
+                {cur.pt&&<div style={{fontSize:13,color:C.dim,fontStyle:'italic',lineHeight:1.35,marginBottom:14}}>{cur.pt}</div>}
+              </div>
+            </div>
+            <div style={{display:'flex',gap:8}}>
+              <button onClick={()=>seek(cur.sec)} style={{flex:1,padding:'10px 12px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:`1px solid ${C.border}`,color:C.text,fontSize:12,fontWeight:500,fontFamily:F.body,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
+                {Ico.play(11,'#fff')} Replay {cur.t}
+              </button>
+              <button onClick={()=>toggle(pin)} style={{padding:'8px 14px 8px 10px',borderRadius:10,background:isDone?'rgba(91,209,140,0.15)':'rgba(255,255,255,0.06)',border:`1px solid ${isDone?'rgba(91,209,140,0.45)':C.border}`,color:isDone?'#7AE3A8':C.text,fontSize:12,fontWeight:500,fontFamily:F.body,cursor:'pointer',display:'flex',alignItems:'center',gap:8,transition:'all 0.15s'}}>
+                <div style={{width:18,height:18,borderRadius:5,background:isDone?C.green:'transparent',border:`1.5px solid ${isDone?C.green:'rgba(255,255,255,0.4)'}`,display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.15s'}}>
+                  {isDone&&<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </div>
+                {isDone?'Reviewed':'Mark reviewed'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* All corrections */}
+      <div style={{padding:'0 20px'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
+          <div style={{fontSize:10,color:C.dim,fontFamily:F.mono,letterSpacing:1.4,textTransform:'uppercase'}}>All Corrections</div>
+          <div style={{fontSize:10,color:C.dim,fontFamily:F.mono}}>{corrections.length} TOTAL</div>
+        </div>
+        {!corrections.length&&<div style={{padding:'20px 0',color:C.dim,fontSize:13,fontFamily:F.mono}}>No corrections detected.</div>}
+        <div style={{display:'flex',flexDirection:'column',gap:6}}>
+          {corrections.map((c,i)=>
+            <button key={i} onClick={()=>{setPin(i);seek(c.sec);}} style={{textAlign:'left',cursor:'pointer',padding:12,borderRadius:14,background:i===pin?'rgba(224,64,160,0.08)':C.card,border:`1px solid ${i===pin?'rgba(224,64,160,0.3)':C.border}`,display:'flex',alignItems:'center',gap:12}}>
+              <div style={{width:8,height:8,borderRadius:4,background:c.sev==='major'?C.pink:C.purple,flexShrink:0}}/>
+              <div style={{fontFamily:F.mono,fontSize:12,color:C.dim,width:42,flexShrink:0}}>{c.t}</div>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontSize:13,color:C.text,fontWeight:500,marginBottom:2,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{c.en}</div>
+                <div style={{fontSize:10,color:C.dim,fontFamily:F.mono,letterSpacing:0.4,textTransform:'uppercase'}}>{c.cat} · {c.conf}%</div>
+              </div>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCREEN 4 — PROGRESS
+// ═══════════════════════════════════════════════════════════════
+function ProgressScreen({sessions, nav}) {
+  // Score history — up to last 10 sessions, oldest→newest
+  const history = [...sessions].reverse().slice(-10);
+  const maxScore = Math.max(...history.map(s=>s.score||0), 1);
+
+  // Corrections breakdown across all sessions
+  const corrCount = {};
+  sessions.forEach(s=>{
+    (s.report?.corrections||[]).forEach(c=>{
+      const key = c.id || 'unknown';
+      if(!corrCount[key]) corrCount[key]={id:key,label:BODY[key]||fmtEx(c.exercise_id||key),sev:c.severity||'warning',count:0};
+      corrCount[key].count += (c.frequency||1);
+    });
+  });
+  const corrList = Object.values(corrCount).sort((a,b)=>b.count-a.count).slice(0,12);
+
+  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,overflowX:'hidden',position:'relative'}}>
+    <StatusBar/>
+    <div style={{padding:'8px 20px 140px',overflowY:'auto'}}>
+
+      {/* Header */}
+      <div style={{display:'flex',alignItems:'center',marginTop:8,marginBottom:24}}>
+        <div>
+          <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,textTransform:'uppercase',letterSpacing:1.2,marginBottom:6}}>Overview</div>
+          <h1 style={{fontWeight:700,letterSpacing:'-0.025em',margin:0,lineHeight:1.05,fontSize:27}}>
+            Your <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:34}}>Progress</span>
+          </h1>
+        </div>
+      </div>
+
+      {/* Score history */}
+      <div style={{marginBottom:24}}>
+        <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,letterSpacing:1.4,textTransform:'uppercase',marginBottom:12}}>Score History</div>
+        {!history.length
+          ? <div style={{padding:'20px 0',color:C.dim,fontSize:13,fontFamily:F.mono}}>No sessions yet.</div>
+          : <div style={{borderRadius:22,padding:'16px 16px 12px',background:C.card,border:`1px solid ${C.border}`}}>
+              <div style={{display:'flex',flexDirection:'column',gap:8}}>
+                {history.map((s,i)=>{
+                  const score = s.score||0;
+                  const tone  = score>=80?C.green:score>=70?'#F4A77A':C.pink;
+                  const pct   = Math.max((score/maxScore)*100,4);
+                  return <div key={s.id||i} style={{display:'flex',alignItems:'center',gap:10}}>
+                    <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer,width:36,flexShrink:0,textAlign:'right'}}>{score}</div>
+                    <div style={{flex:1,height:22,borderRadius:6,background:'rgba(255,255,255,0.05)',position:'relative',overflow:'hidden'}}>
+                      <div style={{position:'absolute',left:0,top:0,bottom:0,width:`${pct}%`,background:`linear-gradient(90deg,${tone}88,${tone})`,borderRadius:6,transition:'width 0.4s ease'}}/>
+                    </div>
+                    <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer,width:60,flexShrink:0,textAlign:'right',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{fmtEx(s.exercise_id||'')}</div>
+                  </div>;
+                })}
+              </div>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:10,paddingTop:10,borderTop:`1px solid ${C.border}`}}>
+                <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer,letterSpacing:0.5}}>
+                  {history.length} SESSION{history.length!==1?'S':''} SHOWN
+                </div>
+                <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer}}>
+                  AVG {avgScore(sessions)}/100
+                </div>
+              </div>
+            </div>
+        }
+      </div>
+
+      {/* Corrections breakdown */}
+      <div style={{marginBottom:24}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+          <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,letterSpacing:1.4,textTransform:'uppercase'}}>Corrections Breakdown</div>
+          <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer}}>{corrList.length} TYPES</div>
+        </div>
+        {!corrList.length
+          ? <div style={{padding:'20px 0',color:C.dim,fontSize:13,fontFamily:F.mono}}>No corrections data yet.</div>
+          : <div style={{borderRadius:22,padding:'4px 0',background:C.card,border:`1px solid ${C.border}`,display:'flex',flexDirection:'column'}}>
+              {corrList.map((c,i)=>(
+                <div key={c.id} style={{display:'flex',alignItems:'center',gap:12,padding:'12px 16px',borderBottom:i<corrList.length-1?`1px solid ${C.border}`:'none'}}>
+                  <div style={{width:8,height:8,borderRadius:4,flexShrink:0,background:c.sev==='major'?C.pink:C.purple}}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:13,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{c.label}</div>
+                    <div style={{fontSize:10,fontFamily:F.mono,color:C.dimmer,letterSpacing:0.4,textTransform:'uppercase',marginTop:1}}>{c.id}</div>
+                  </div>
+                  <div style={{fontSize:13,fontWeight:700,fontFamily:F.mono,color:c.sev==='major'?C.pink:C.purple,flexShrink:0}}>{c.count}×</div>
+                </div>
+              ))}
+            </div>
+        }
+      </div>
+
+      {/* Legend */}
+      <div style={{display:'flex',gap:16,padding:'10px 14px',borderRadius:14,background:'rgba(255,255,255,0.03)',border:`1px solid ${C.border}`}}>
+        <div style={{display:'flex',alignItems:'center',gap:6}}>
+          <div style={{width:8,height:8,borderRadius:4,background:C.pink}}/>
+          <span style={{fontSize:11,color:C.dim,fontFamily:F.mono}}>Major</span>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:6}}>
+          <div style={{width:8,height:8,borderRadius:4,background:C.purple}}/>
+          <span style={{fontSize:11,color:C.dim,fontFamily:F.mono}}>Warning</span>
+        </div>
+      </div>
+
+    </div>
+    <BottomNav active="progress" onTap={nav}/>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LOGIN SCREEN
+// ═══════════════════════════════════════════════════════════════
+function LoginScreen({onLogin}) {
+  const [mode,     setMode]    = useState('login'); // 'login' | 'register'
+  const [email,    setEmail]   = useState('');
+  const [password, setPassword]= useState('');
+  const [name,     setName]    = useState('');
+  const [busy,     setBusy]    = useState(false);
+  const [err,      setErr]     = useState('');
+
+  async function submit(e) {
+    e.preventDefault();
+    const demoUser = {id:'demo', email: email||'demo@releve.app', name: name||'Bailarina', role:'student'};
+    localStorage.setItem('releve_user', JSON.stringify(demoUser));
+    onLogin(demoUser, null);
+  }
+
+  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 28px'}}>
+    <div style={{marginBottom:36}}>
+      <div style={{fontFamily:F.serif,fontStyle:'italic',fontSize:42,fontWeight:500,letterSpacing:'-0.02em',marginBottom:4}}>(r)elevē</div>
+      <div style={{fontSize:13,color:C.dim}}>{mode==='login'?'Bem-vinda de volta.':'Cria a tua conta.'}</div>
+    </div>
+
+    <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:12}}>
+      {mode==='register' &&
+        <input value={name} onChange={e=>setName(e.target.value)} placeholder="Nome"
+          style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
+      }
+
+      <input value={email} onChange={e=>setEmail(e.target.value)} type="email" placeholder="Email"
+        style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
+      <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password"
+        style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
+
+      {err && <div style={{fontSize:12,color:'#ff6b6b',padding:'8px 12px',background:'rgba(255,107,107,0.1)',borderRadius:8}}>{err}</div>}
+
+      <button type="submit" disabled={busy} style={{
+        padding:16,borderRadius:14,border:'none',background:C.grad,color:'#fff',
+        fontFamily:F.body,fontSize:15,fontWeight:600,cursor:'pointer',marginTop:4,
+        opacity:busy?0.7:1,
+      }}>
+        {busy?'...':(mode==='login'?'Entrar':'Criar conta')}
+      </button>
+    </form>
+
+    <button onClick={()=>{setMode(m=>m==='login'?'register':'login');setErr('');}} style={{
+      background:'none',border:'none',color:C.dim,fontFamily:F.body,fontSize:13,
+      cursor:'pointer',marginTop:20,textAlign:'center',
+    }}>
+      {mode==='login'?'Não tens conta? Regista-te →':'Já tens conta? Entra →'}
+    </button>
+  </div>;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// APP ROOT
+// ═══════════════════════════════════════════════════════════════
+function App() {
+  const [screen,   setScreen]  = useState('home');
+  const [sessions, setSessions]= useState([]);
+  const [report,   setReport]  = useState(null);
+  const [user,     setUser]    = useState(()=>{
+    try{return JSON.parse(localStorage.getItem('releve_user'));}catch{return null;}
+  });
+  const [token,    setToken]   = useState(()=>localStorage.getItem('releve_token'));
+
+  const authHeaders = token ? {'Authorization':`Bearer ${token}`} : {};
+
+  useEffect(()=>{if(user&&token)load();},[user,token]);
+
+  async function load(){
+    try{
+      const r=await fetch('/api/sessions',{headers:authHeaders});
+      const d=await r.json();
+      setSessions(Array.isArray(d)?d:[]);
+    }catch(e){console.error(e);}
+  }
+
+  function handleLogin(u, t){setUser(u);setToken(t);}
+  function handleLogout(){
+    localStorage.removeItem('releve_token');
+    localStorage.removeItem('releve_user');
+    setUser(null);setToken(null);setSessions([]);
+  }
+
+  function openSession(s){setReport(s.report||s);setScreen('analysis');}
+  function handleDone(r){load();setReport(r);setScreen('analysis');}
+  function nav(s){if(s==='home'||s==='upload'||s==='progress')setScreen(s);}
+
+  if(!user) return <LoginScreen onLogin={handleLogin}/>;
+
+  if(screen==='analysis'&&report) return <AnalysisScreen report={report} onBack={()=>setScreen('home')}/>;
+  if(screen==='upload')           return <UploadScreen sessions={sessions} nav={nav} openSession={openSession} onDone={handleDone} token={token}/>;
+  if(screen==='progress')         return <ProgressScreen sessions={sessions} nav={nav}/>;
+  return <HomeScreen sessions={sessions} nav={nav} openSession={openSession} user={user} onLogout={handleLogout}/>;
+}
+
+ReactDOM.createRoot(document.getElementById('shell')).render(<App/>);
+</script>
+</body>
+</html>

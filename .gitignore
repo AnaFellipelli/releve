@@ -1,0 +1,6 @@
+.env
+*.db
+uploaded_videos/
+__pycache__/
+*.pyc
+.venv/

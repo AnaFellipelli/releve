@@ -1,0 +1,5394 @@
+[
+  {
+    "id": "9fb8fea26354",
+    "created_at": "2026-04-09T18:11:03.525002+00:00",
+    "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+    "video_url": "/videos/9fb8fea26354.mp4",
+    "exercise_id": "all",
+    "exercise": "All Steps",
+    "score": 33,
+    "grade": "Significant Corrections",
+    "corrections_count": 13,
+    "duration_seconds": 31.2,
+    "report": {
+      "exercise_id": "all",
+      "exercise": "All Steps",
+      "score": 33,
+      "grade": "Significant Corrections",
+      "corrections": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "cue_pt": "Cotovelos muito retos. Mantenha a curva suave do braço — cotovelo levemente dobrado.",
+          "cue_en": "Elbows too straight. Maintain the soft arm curve — elbow slightly bent.",
+          "frequency": 439,
+          "first_seen_ms": 69,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "cue_pt": "Arabesque abaixo de 90°. Eleve a perna — inicie o movimento do quadril, não do joelho.",
+          "cue_en": "Arabesque below 90°. Lift the leg — initiate from the hip, not the knee.",
+          "frequency": 381,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "cue_pt": "Quadril abrindo. Mantenha ambos os quadris de frente — não rode o quadril de trabalho para cima.",
+          "cue_en": "Hip opening. Keep both hips square to the front — do not rotate the working hip upward.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "cue_pt": "Tronco inclinando muito para frente. Mantenha o eixo ereto — engage o core.",
+          "cue_en": "Trunk leaning too far forward. Maintain upright axis — engage the core.",
+          "frequency": 419,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Mantenha o joelho completamente esticado durante todo o battement.",
+          "cue_en": "Supporting knee bending. Keep the knee fully extended throughout the battement.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "cue_pt": "Retorno descontrolado. Controle a descida com a mesma energia da subida — não deixe cair.",
+          "cue_en": "Uncontrolled return. Control the descent with the same energy as the lift — do not let it drop.",
+          "frequency": 409,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Estique completamente o joelho de suporte — empurre o chão para baixo.",
+          "cue_en": "Supporting knee bending. Fully straighten the supporting knee — push the floor down.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "cue_pt": "Tronco instável durante o tendu. Mantenha o eixo central fixo — o movimento vem apenas da perna.",
+          "cue_en": "Trunk instability during tendu. Keep the central axis fixed — movement comes from the leg only.",
+          "frequency": 442,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "cue_pt": "Articulação do pé incorreta. Para fora: calcanhar lidera. Para dentro: dedos lideram.",
+          "cue_en": "Incorrect foot articulation. Going out: heel leads. Coming in: toes lead.",
+          "frequency": 200,
+          "first_seen_ms": 2228,
+          "first_seen_ts": "00:02",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "cue_pt": "Tronco muito inclinado para frente no plié. Mantenha o eixo longo — não compense a profundidade inclinando.",
+          "cue_en": "Trunk leaning too far forward in plié. Keep the axis long — do not compensate depth by leaning.",
+          "frequency": 222,
+          "first_seen_ms": 5849,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "cue_pt": "Joelhos caindo para dentro. Rode os joelhos sobre o 2º e 3º dedos — empurre-os para fora ativamente.",
+          "cue_en": "Knees falling inward. Rotate the knees over the 2nd and 3rd toes — actively push them outward.",
+          "frequency": 256,
+          "first_seen_ms": 5919,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "cue_pt": "Pausa no fundo do plié. O plié deve ser contínuo — sem momento de parada na transição.",
+          "cue_en": "Pause at the bottom of the plié. The plié should be continuous — no stopping at the transition.",
+          "frequency": 1,
+          "first_seen_ms": 14345,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "cue_pt": "Sentando na articulação no fundo do plié. Mantenha o tronco ativo e ereto — não afunde no quadril.",
+          "cue_en": "Sitting into the joint at the bottom. Keep the trunk active and upright — do not sink into the hip.",
+          "frequency": 25,
+          "first_seen_ms": 14414,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "correction_timeline": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "phases_summary": {
+        "plie": {
+          "preparation": 154,
+          "descent": 237,
+          "finish": 34,
+          "bottom": 24
+        },
+        "arabesque": {
+          "Preparation": 90,
+          "Full arabesque": 157,
+          "Hold": 112,
+          "Return": 90
+        },
+        "battement_tendu": {
+          "Preparation": 68,
+          "Brush out": 258,
+          "Full extension": 10,
+          "Return": 113
+        },
+        "grand_battement": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        },
+        "port_de_bras": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        }
+      },
+      "total_frames_analysed": 449,
+      "duration_seconds": 31.2,
+      "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+      "session_id": "9fb8fea26354",
+      "video_url": "/videos/9fb8fea26354.mp4",
+      "frames_processed": 449,
+      "video_duration_s": 32.0
+    }
+  },
+  {
+    "id": "2eb34430b7d3",
+    "created_at": "2026-04-09T18:13:50.296103+00:00",
+    "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+    "video_url": "/videos/2eb34430b7d3.mp4",
+    "exercise_id": "all",
+    "exercise": "All Steps",
+    "score": 33,
+    "grade": "Significant Corrections",
+    "corrections_count": 13,
+    "duration_seconds": 31.2,
+    "report": {
+      "exercise_id": "all",
+      "exercise": "All Steps",
+      "score": 33,
+      "grade": "Significant Corrections",
+      "corrections": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "cue_pt": "Cotovelos muito retos. Mantenha a curva suave do braço — cotovelo levemente dobrado.",
+          "cue_en": "Elbows too straight. Maintain the soft arm curve — elbow slightly bent.",
+          "frequency": 439,
+          "first_seen_ms": 69,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "cue_pt": "Arabesque abaixo de 90°. Eleve a perna — inicie o movimento do quadril, não do joelho.",
+          "cue_en": "Arabesque below 90°. Lift the leg — initiate from the hip, not the knee.",
+          "frequency": 381,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "cue_pt": "Quadril abrindo. Mantenha ambos os quadris de frente — não rode o quadril de trabalho para cima.",
+          "cue_en": "Hip opening. Keep both hips square to the front — do not rotate the working hip upward.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "cue_pt": "Tronco inclinando muito para frente. Mantenha o eixo ereto — engage o core.",
+          "cue_en": "Trunk leaning too far forward. Maintain upright axis — engage the core.",
+          "frequency": 419,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Mantenha o joelho completamente esticado durante todo o battement.",
+          "cue_en": "Supporting knee bending. Keep the knee fully extended throughout the battement.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "cue_pt": "Retorno descontrolado. Controle a descida com a mesma energia da subida — não deixe cair.",
+          "cue_en": "Uncontrolled return. Control the descent with the same energy as the lift — do not let it drop.",
+          "frequency": 409,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Estique completamente o joelho de suporte — empurre o chão para baixo.",
+          "cue_en": "Supporting knee bending. Fully straighten the supporting knee — push the floor down.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "cue_pt": "Tronco instável durante o tendu. Mantenha o eixo central fixo — o movimento vem apenas da perna.",
+          "cue_en": "Trunk instability during tendu. Keep the central axis fixed — movement comes from the leg only.",
+          "frequency": 442,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "cue_pt": "Articulação do pé incorreta. Para fora: calcanhar lidera. Para dentro: dedos lideram.",
+          "cue_en": "Incorrect foot articulation. Going out: heel leads. Coming in: toes lead.",
+          "frequency": 200,
+          "first_seen_ms": 2228,
+          "first_seen_ts": "00:02",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "cue_pt": "Tronco muito inclinado para frente no plié. Mantenha o eixo longo — não compense a profundidade inclinando.",
+          "cue_en": "Trunk leaning too far forward in plié. Keep the axis long — do not compensate depth by leaning.",
+          "frequency": 222,
+          "first_seen_ms": 5849,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "cue_pt": "Joelhos caindo para dentro. Rode os joelhos sobre o 2º e 3º dedos — empurre-os para fora ativamente.",
+          "cue_en": "Knees falling inward. Rotate the knees over the 2nd and 3rd toes — actively push them outward.",
+          "frequency": 256,
+          "first_seen_ms": 5919,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "cue_pt": "Pausa no fundo do plié. O plié deve ser contínuo — sem momento de parada na transição.",
+          "cue_en": "Pause at the bottom of the plié. The plié should be continuous — no stopping at the transition.",
+          "frequency": 1,
+          "first_seen_ms": 14345,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "cue_pt": "Sentando na articulação no fundo do plié. Mantenha o tronco ativo e ereto — não afunde no quadril.",
+          "cue_en": "Sitting into the joint at the bottom. Keep the trunk active and upright — do not sink into the hip.",
+          "frequency": 25,
+          "first_seen_ms": 14414,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "correction_timeline": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "phases_summary": {
+        "plie": {
+          "preparation": 154,
+          "descent": 237,
+          "finish": 34,
+          "bottom": 24
+        },
+        "arabesque": {
+          "Preparation": 90,
+          "Full arabesque": 157,
+          "Hold": 112,
+          "Return": 90
+        },
+        "battement_tendu": {
+          "Preparation": 68,
+          "Brush out": 258,
+          "Full extension": 10,
+          "Return": 113
+        },
+        "grand_battement": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        },
+        "port_de_bras": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        }
+      },
+      "total_frames_analysed": 449,
+      "duration_seconds": 31.2,
+      "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+      "session_id": "2eb34430b7d3",
+      "video_url": "/videos/2eb34430b7d3.mp4",
+      "frames_processed": 449,
+      "video_duration_s": 32.0
+    }
+  },
+  {
+    "id": "8e707b5197a7",
+    "created_at": "2026-04-09T18:15:31.725192+00:00",
+    "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+    "video_url": "/videos/8e707b5197a7.mp4",
+    "exercise_id": "all",
+    "exercise": "All Steps",
+    "score": 33,
+    "grade": "Significant Corrections",
+    "corrections_count": 13,
+    "duration_seconds": 31.2,
+    "report": {
+      "exercise_id": "all",
+      "exercise": "All Steps",
+      "score": 33,
+      "grade": "Significant Corrections",
+      "corrections": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "cue_pt": "Cotovelos muito retos. Mantenha a curva suave do braço — cotovelo levemente dobrado.",
+          "cue_en": "Elbows too straight. Maintain the soft arm curve — elbow slightly bent.",
+          "frequency": 439,
+          "first_seen_ms": 69,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "cue_pt": "Arabesque abaixo de 90°. Eleve a perna — inicie o movimento do quadril, não do joelho.",
+          "cue_en": "Arabesque below 90°. Lift the leg — initiate from the hip, not the knee.",
+          "frequency": 381,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "cue_pt": "Quadril abrindo. Mantenha ambos os quadris de frente — não rode o quadril de trabalho para cima.",
+          "cue_en": "Hip opening. Keep both hips square to the front — do not rotate the working hip upward.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "cue_pt": "Tronco inclinando muito para frente. Mantenha o eixo ereto — engage o core.",
+          "cue_en": "Trunk leaning too far forward. Maintain upright axis — engage the core.",
+          "frequency": 419,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Mantenha o joelho completamente esticado durante todo o battement.",
+          "cue_en": "Supporting knee bending. Keep the knee fully extended throughout the battement.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "cue_pt": "Retorno descontrolado. Controle a descida com a mesma energia da subida — não deixe cair.",
+          "cue_en": "Uncontrolled return. Control the descent with the same energy as the lift — do not let it drop.",
+          "frequency": 409,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Estique completamente o joelho de suporte — empurre o chão para baixo.",
+          "cue_en": "Supporting knee bending. Fully straighten the supporting knee — push the floor down.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "cue_pt": "Tronco instável durante o tendu. Mantenha o eixo central fixo — o movimento vem apenas da perna.",
+          "cue_en": "Trunk instability during tendu. Keep the central axis fixed — movement comes from the leg only.",
+          "frequency": 442,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "cue_pt": "Articulação do pé incorreta. Para fora: calcanhar lidera. Para dentro: dedos lideram.",
+          "cue_en": "Incorrect foot articulation. Going out: heel leads. Coming in: toes lead.",
+          "frequency": 200,
+          "first_seen_ms": 2228,
+          "first_seen_ts": "00:02",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "cue_pt": "Tronco muito inclinado para frente no plié. Mantenha o eixo longo — não compense a profundidade inclinando.",
+          "cue_en": "Trunk leaning too far forward in plié. Keep the axis long — do not compensate depth by leaning.",
+          "frequency": 222,
+          "first_seen_ms": 5849,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "cue_pt": "Joelhos caindo para dentro. Rode os joelhos sobre o 2º e 3º dedos — empurre-os para fora ativamente.",
+          "cue_en": "Knees falling inward. Rotate the knees over the 2nd and 3rd toes — actively push them outward.",
+          "frequency": 256,
+          "first_seen_ms": 5919,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "cue_pt": "Pausa no fundo do plié. O plié deve ser contínuo — sem momento de parada na transição.",
+          "cue_en": "Pause at the bottom of the plié. The plié should be continuous — no stopping at the transition.",
+          "frequency": 1,
+          "first_seen_ms": 14345,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "cue_pt": "Sentando na articulação no fundo do plié. Mantenha o tronco ativo e ereto — não afunde no quadril.",
+          "cue_en": "Sitting into the joint at the bottom. Keep the trunk active and upright — do not sink into the hip.",
+          "frequency": 25,
+          "first_seen_ms": 14414,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "correction_timeline": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_006",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 206,
+              "end_frame": 206,
+              "start_ms": 14345,
+              "end_ms": 14345,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 0,
+              "frames": 1
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "phases_summary": {
+        "plie": {
+          "preparation": 154,
+          "descent": 237,
+          "finish": 34,
+          "bottom": 24
+        },
+        "arabesque": {
+          "Preparation": 90,
+          "Full arabesque": 157,
+          "Hold": 112,
+          "Return": 90
+        },
+        "battement_tendu": {
+          "Preparation": 68,
+          "Brush out": 258,
+          "Full extension": 10,
+          "Return": 113
+        },
+        "grand_battement": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        },
+        "port_de_bras": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        }
+      },
+      "total_frames_analysed": 449,
+      "duration_seconds": 31.2,
+      "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+      "session_id": "8e707b5197a7",
+      "video_url": "/videos/8e707b5197a7.mp4",
+      "frames_processed": 449,
+      "video_duration_s": 32.0
+    }
+  },
+  {
+    "id": "a79d665d4cfe",
+    "created_at": "2026-05-06T10:59:39.039371+00:00",
+    "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+    "video_url": "/videos/a79d665d4cfe.mp4",
+    "exercise_id": "all",
+    "exercise": "All Steps",
+    "score": 33,
+    "grade": "Significant Corrections",
+    "corrections_count": 12,
+    "duration_seconds": 31.2,
+    "report": {
+      "exercise_id": "all",
+      "exercise": "All Steps",
+      "score": 33,
+      "grade": "Significant Corrections",
+      "corrections": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "cue_pt": "Cotovelos muito retos. Mantenha a curva suave do braço — cotovelo levemente dobrado.",
+          "cue_en": "Elbows too straight. Maintain the soft arm curve — elbow slightly bent.",
+          "frequency": 439,
+          "first_seen_ms": 69,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "confidence": 0.938,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "elbow_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.978,
+            "longest_segment_frames": 310,
+            "presence_confidence": 1.0
+          },
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "cue_pt": "Arabesque abaixo de 90°. Eleve a perna — inicie o movimento do quadril, não do joelho.",
+          "cue_en": "Arabesque below 90°. Lift the leg — initiate from the hip, not the knee.",
+          "frequency": 381,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "confidence": 0.844,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "arabesque_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.849,
+            "longest_segment_frames": 147,
+            "presence_confidence": 0.934
+          },
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "cue_pt": "Quadril abrindo. Mantenha ambos os quadris de frente — não rode o quadril de trabalho para cima.",
+          "cue_en": "Hip opening. Keep both hips square to the front — do not rotate the working hip upward.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "confidence": 0.99,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "hip_rotation_deg",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.996,
+            "longest_segment_frames": 447,
+            "presence_confidence": 0.934
+          },
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "cue_pt": "Tronco inclinando muito para frente. Mantenha o eixo ereto — engage o core.",
+          "cue_en": "Trunk leaning too far forward. Maintain upright axis — engage the core.",
+          "frequency": 419,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "confidence": 0.82,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "trunk_lean_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.933,
+            "longest_segment_frames": 179,
+            "presence_confidence": 0.934
+          },
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Mantenha o joelho completamente esticado durante todo o battement.",
+          "cue_en": "Supporting knee bending. Keep the knee fully extended throughout the battement.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "confidence": 0.99,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "knee_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.996,
+            "longest_segment_frames": 447,
+            "presence_confidence": 0.991
+          },
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "cue_pt": "Retorno descontrolado. Controle a descida com a mesma energia da subida — não deixe cair.",
+          "cue_en": "Uncontrolled return. Control the descent with the same energy as the lift — do not let it drop.",
+          "frequency": 409,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "confidence": 0.821,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "trunk_lean_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.911,
+            "longest_segment_frames": 177,
+            "presence_confidence": 0.991
+          },
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "cue_pt": "Joelho de apoio dobrado. Estique completamente o joelho de suporte — empurre o chão para baixo.",
+          "cue_en": "Supporting knee bending. Fully straighten the supporting knee — push the floor down.",
+          "frequency": 447,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "confidence": 0.99,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "knee_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.996,
+            "longest_segment_frames": 447,
+            "presence_confidence": 0.844
+          },
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "cue_pt": "Tronco instável durante o tendu. Mantenha o eixo central fixo — o movimento vem apenas da perna.",
+          "cue_en": "Trunk instability during tendu. Keep the central axis fixed — movement comes from the leg only.",
+          "frequency": 442,
+          "first_seen_ms": 139,
+          "first_seen_ts": "00:00",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "confidence": 0.876,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "trunk_lean_angle",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.984,
+            "longest_segment_frames": 260,
+            "presence_confidence": 0.844
+          },
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "cue_pt": "Articulação do pé incorreta. Para fora: calcanhar lidera. Para dentro: dedos lideram.",
+          "cue_en": "Incorrect foot articulation. Going out: heel leads. Coming in: toes lead.",
+          "frequency": 200,
+          "first_seen_ms": 2228,
+          "first_seen_ts": "00:02",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "confidence": 0.512,
+          "confidence_level": "medium",
+          "evidence": {
+            "metric_name": "foot_articulation_proxy",
+            "threshold": "db_rule",
+            "frequency_ratio": 0.445,
+            "longest_segment_frames": 37,
+            "presence_confidence": 0.844
+          },
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "cue_pt": "Tronco muito inclinado para frente no plié. Mantenha o eixo longo — não compense a profundidade inclinando.",
+          "cue_en": "Trunk leaning too far forward in plié. Keep the axis long — do not compensate depth by leaning.",
+          "frequency": 222,
+          "first_seen_ms": 5849,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "confidence": 0.518,
+          "confidence_level": "medium",
+          "evidence": {
+            "metric_name": "trunk_lean_angle",
+            "threshold": 8,
+            "frequency_ratio": 0.494,
+            "longest_segment_frames": 58
+          },
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "cue_pt": "Joelhos caindo para dentro. Rode os joelhos sobre o 2º e 3º dedos — empurre-os para fora ativamente.",
+          "cue_en": "Knees falling inward. Rotate the knees over the 2nd and 3rd toes — actively push them outward.",
+          "frequency": 256,
+          "first_seen_ms": 5919,
+          "first_seen_ts": "00:05",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "confidence": 0.716,
+          "confidence_level": "high",
+          "evidence": {
+            "metric_name": "knee_toe_offset_norm",
+            "threshold": 0.05,
+            "frequency_ratio": 0.57,
+            "longest_segment_frames": 141
+          },
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "cue_pt": "Sentando na articulação no fundo do plié. Mantenha o tronco ativo e ereto — não afunde no quadril.",
+          "cue_en": "Sitting into the joint at the bottom. Keep the trunk active and upright — do not sink into the hip.",
+          "frequency": 25,
+          "first_seen_ms": 14414,
+          "first_seen_ts": "00:14",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "confidence": 0.395,
+          "confidence_level": "low",
+          "evidence": {
+            "metric_name": "knee_depth_with_lean",
+            "threshold": 1,
+            "frequency_ratio": 0.056,
+            "longest_segment_frames": 25
+          },
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "correction_timeline": [
+        {
+          "id": "bras_002",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 1,
+              "end_frame": 310,
+              "start_ms": 69,
+              "end_ms": 21587,
+              "start_ts": "00:00",
+              "end_ts": "00:21",
+              "duration_ms": 21518,
+              "frames": 310
+            },
+            {
+              "start_frame": 314,
+              "end_frame": 355,
+              "start_ms": 21865,
+              "end_ms": 24721,
+              "start_ts": "00:21",
+              "end_ts": "00:24",
+              "duration_ms": 2856,
+              "frames": 42
+            },
+            {
+              "start_frame": 359,
+              "end_frame": 365,
+              "start_ms": 24999,
+              "end_ms": 25417,
+              "start_ts": "00:24",
+              "end_ts": "00:25",
+              "duration_ms": 418,
+              "frames": 7
+            },
+            {
+              "start_frame": 368,
+              "end_frame": 448,
+              "start_ms": 25626,
+              "end_ms": 31197,
+              "start_ts": "00:25",
+              "end_ts": "00:31",
+              "duration_ms": 5571,
+              "frames": 81
+            }
+          ],
+          "exercise_id": "port_de_bras",
+          "exercise": "Port de Bras"
+        },
+        {
+          "id": "arab_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 34,
+              "start_ms": 139,
+              "end_ms": 2367,
+              "start_ts": "00:00",
+              "end_ts": "00:02",
+              "duration_ms": 2228,
+              "frames": 33
+            },
+            {
+              "start_frame": 47,
+              "end_frame": 193,
+              "start_ms": 3272,
+              "end_ms": 13439,
+              "start_ts": "00:03",
+              "end_ts": "00:13",
+              "duration_ms": 10167,
+              "frames": 147
+            },
+            {
+              "start_frame": 213,
+              "end_frame": 216,
+              "start_ms": 14832,
+              "end_ms": 15041,
+              "start_ts": "00:14",
+              "end_ts": "00:15",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 230,
+              "end_frame": 331,
+              "start_ms": 16016,
+              "end_ms": 23049,
+              "start_ts": "00:16",
+              "end_ts": "00:23",
+              "duration_ms": 7033,
+              "frames": 102
+            },
+            {
+              "start_frame": 340,
+              "end_frame": 359,
+              "start_ms": 23676,
+              "end_ms": 24999,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 371,
+              "end_frame": 429,
+              "start_ms": 25835,
+              "end_ms": 29874,
+              "start_ts": "00:25",
+              "end_ts": "00:29",
+              "duration_ms": 4039,
+              "frames": 59
+            },
+            {
+              "start_frame": 433,
+              "end_frame": 448,
+              "start_ms": 30152,
+              "end_ms": 31197,
+              "start_ts": "00:30",
+              "end_ts": "00:31",
+              "duration_ms": 1045,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "arab_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 121,
+              "start_ms": 139,
+              "end_ms": 8426,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8287,
+              "frames": 120
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 156,
+              "start_ms": 9122,
+              "end_ms": 10863,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1741,
+              "frames": 26
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 256,
+              "start_ms": 11350,
+              "end_ms": 17827,
+              "start_ts": "00:11",
+              "end_ts": "00:17",
+              "duration_ms": 6477,
+              "frames": 94
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 448,
+              "start_ms": 18801,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12396,
+              "frames": 179
+            }
+          ],
+          "exercise_id": "arabesque",
+          "exercise": "Arabesque"
+        },
+        {
+          "id": "gbat_002",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "gbat_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 120,
+              "start_ms": 139,
+              "end_ms": 8356,
+              "start_ts": "00:00",
+              "end_ts": "00:08",
+              "duration_ms": 8217,
+              "frames": 119
+            },
+            {
+              "start_frame": 132,
+              "end_frame": 155,
+              "start_ms": 9192,
+              "end_ms": 10793,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1601,
+              "frames": 24
+            },
+            {
+              "start_frame": 164,
+              "end_frame": 233,
+              "start_ms": 11420,
+              "end_ms": 16225,
+              "start_ts": "00:11",
+              "end_ts": "00:16",
+              "duration_ms": 4805,
+              "frames": 70
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 272,
+              "end_frame": 448,
+              "start_ms": 18941,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12256,
+              "frames": 177
+            }
+          ],
+          "exercise_id": "grand_battement",
+          "exercise": "Grand Battement"
+        },
+        {
+          "id": "tendu_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 448,
+              "start_ms": 139,
+              "end_ms": 31197,
+              "start_ts": "00:00",
+              "end_ts": "00:31",
+              "duration_ms": 31058,
+              "frames": 447
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_004",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 2,
+              "end_frame": 261,
+              "start_ms": 139,
+              "end_ms": 18175,
+              "start_ts": "00:00",
+              "end_ts": "00:18",
+              "duration_ms": 18036,
+              "frames": 260
+            },
+            {
+              "start_frame": 267,
+              "end_frame": 448,
+              "start_ms": 18593,
+              "end_ms": 31197,
+              "start_ts": "00:18",
+              "end_ts": "00:31",
+              "duration_ms": 12604,
+              "frames": 182
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "tendu_003",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 32,
+              "end_frame": 65,
+              "start_ms": 2228,
+              "end_ms": 4526,
+              "start_ts": "00:02",
+              "end_ts": "00:04",
+              "duration_ms": 2298,
+              "frames": 34
+            },
+            {
+              "start_frame": 74,
+              "end_frame": 85,
+              "start_ms": 5153,
+              "end_ms": 5919,
+              "start_ts": "00:05",
+              "end_ts": "00:05",
+              "duration_ms": 766,
+              "frames": 12
+            },
+            {
+              "start_frame": 93,
+              "end_frame": 105,
+              "start_ms": 6476,
+              "end_ms": 7311,
+              "start_ts": "00:06",
+              "end_ts": "00:07",
+              "duration_ms": 835,
+              "frames": 13
+            },
+            {
+              "start_frame": 110,
+              "end_frame": 112,
+              "start_ms": 7660,
+              "end_ms": 7799,
+              "start_ts": "00:07",
+              "end_ts": "00:07",
+              "duration_ms": 139,
+              "frames": 3
+            },
+            {
+              "start_frame": 117,
+              "end_frame": 120,
+              "start_ms": 8147,
+              "end_ms": 8356,
+              "start_ts": "00:08",
+              "end_ts": "00:08",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 142,
+              "end_frame": 149,
+              "start_ms": 9888,
+              "end_ms": 10375,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 156,
+              "end_frame": 182,
+              "start_ms": 10863,
+              "end_ms": 12673,
+              "start_ts": "00:10",
+              "end_ts": "00:12",
+              "duration_ms": 1810,
+              "frames": 27
+            },
+            {
+              "start_frame": 203,
+              "end_frame": 210,
+              "start_ms": 14136,
+              "end_ms": 14623,
+              "start_ts": "00:14",
+              "end_ts": "00:14",
+              "duration_ms": 487,
+              "frames": 8
+            },
+            {
+              "start_frame": 233,
+              "end_frame": 252,
+              "start_ms": 16225,
+              "end_ms": 17548,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1323,
+              "frames": 20
+            },
+            {
+              "start_frame": 262,
+              "end_frame": 298,
+              "start_ms": 18244,
+              "end_ms": 20751,
+              "start_ts": "00:18",
+              "end_ts": "00:20",
+              "duration_ms": 2507,
+              "frames": 37
+            },
+            {
+              "start_frame": 324,
+              "end_frame": 327,
+              "start_ms": 22562,
+              "end_ms": 22771,
+              "start_ts": "00:22",
+              "end_ts": "00:22",
+              "duration_ms": 209,
+              "frames": 4
+            },
+            {
+              "start_frame": 339,
+              "end_frame": 352,
+              "start_ms": 23606,
+              "end_ms": 24512,
+              "start_ts": "00:23",
+              "end_ts": "00:24",
+              "duration_ms": 906,
+              "frames": 14
+            },
+            {
+              "start_frame": 385,
+              "end_frame": 400,
+              "start_ms": 26810,
+              "end_ms": 27854,
+              "start_ts": "00:26",
+              "end_ts": "00:27",
+              "duration_ms": 1044,
+              "frames": 16
+            }
+          ],
+          "exercise_id": "battement_tendu",
+          "exercise": "Battement Tendu"
+        },
+        {
+          "id": "plie_008",
+          "severity": "warning",
+          "segments": [
+            {
+              "start_frame": 84,
+              "end_frame": 119,
+              "start_ms": 5849,
+              "end_ms": 8286,
+              "start_ts": "00:05",
+              "end_ts": "00:08",
+              "duration_ms": 2437,
+              "frames": 36
+            },
+            {
+              "start_frame": 131,
+              "end_frame": 154,
+              "start_ms": 9122,
+              "end_ms": 10724,
+              "start_ts": "00:09",
+              "end_ts": "00:10",
+              "duration_ms": 1602,
+              "frames": 24
+            },
+            {
+              "start_frame": 163,
+              "end_frame": 171,
+              "start_ms": 11350,
+              "end_ms": 11907,
+              "start_ts": "00:11",
+              "end_ts": "00:11",
+              "duration_ms": 557,
+              "frames": 9
+            },
+            {
+              "start_frame": 186,
+              "end_frame": 232,
+              "start_ms": 12952,
+              "end_ms": 16155,
+              "start_ts": "00:12",
+              "end_ts": "00:16",
+              "duration_ms": 3203,
+              "frames": 47
+            },
+            {
+              "start_frame": 237,
+              "end_frame": 255,
+              "start_ms": 16503,
+              "end_ms": 17757,
+              "start_ts": "00:16",
+              "end_ts": "00:17",
+              "duration_ms": 1254,
+              "frames": 19
+            },
+            {
+              "start_frame": 270,
+              "end_frame": 327,
+              "start_ms": 18801,
+              "end_ms": 22771,
+              "start_ts": "00:18",
+              "end_ts": "00:22",
+              "duration_ms": 3970,
+              "frames": 58
+            },
+            {
+              "start_frame": 420,
+              "end_frame": 448,
+              "start_ms": 29247,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1950,
+              "frames": 29
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_001",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 85,
+              "end_frame": 171,
+              "start_ms": 5919,
+              "end_ms": 11907,
+              "start_ts": "00:05",
+              "end_ts": "00:11",
+              "duration_ms": 5988,
+              "frames": 87
+            },
+            {
+              "start_frame": 187,
+              "end_frame": 327,
+              "start_ms": 13022,
+              "end_ms": 22771,
+              "start_ts": "00:13",
+              "end_ts": "00:22",
+              "duration_ms": 9749,
+              "frames": 141
+            },
+            {
+              "start_frame": 421,
+              "end_frame": 448,
+              "start_ms": 29317,
+              "end_ms": 31197,
+              "start_ts": "00:29",
+              "end_ts": "00:31",
+              "duration_ms": 1880,
+              "frames": 28
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        },
+        {
+          "id": "plie_011",
+          "severity": "major",
+          "segments": [
+            {
+              "start_frame": 207,
+              "end_frame": 231,
+              "start_ms": 14414,
+              "end_ms": 16086,
+              "start_ts": "00:14",
+              "end_ts": "00:16",
+              "duration_ms": 1672,
+              "frames": 25
+            }
+          ],
+          "exercise_id": "plie",
+          "exercise": "Plié"
+        }
+      ],
+      "phases_summary": {
+        "plie": {
+          "preparation": 154,
+          "descent": 237,
+          "finish": 34,
+          "bottom": 24
+        },
+        "arabesque": {
+          "Preparation": 90,
+          "Full arabesque": 157,
+          "Hold": 112,
+          "Return": 90
+        },
+        "battement_tendu": {
+          "Preparation": 68,
+          "Brush out": 258,
+          "Full extension": 10,
+          "Return": 113
+        },
+        "grand_battement": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        },
+        "port_de_bras": {
+          "Preparation": 90,
+          "Execution": 269,
+          "Return": 90
+        }
+      },
+      "total_frames_analysed": 449,
+      "duration_seconds": 31.2,
+      "video_filename": "ScreenRecording_04-09-2026 18-42-07_1.MP4",
+      "session_id": "a79d665d4cfe",
+      "video_url": "/videos/a79d665d4cfe.mp4",
+      "frames_processed": 449,
+      "video_duration_s": 32.0
+    }
+  }
+]
