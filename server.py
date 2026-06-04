@@ -402,4 +402,5 @@ if __name__ == "__main__":
     print("─"*48)
     print("  http://localhost:5000")
     print("─"*48 + "\n")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    debug = os.environ.get("FLASK_ENV") != "production"
+    app.run(debug=debug, host="0.0.0.0", port=5000)
