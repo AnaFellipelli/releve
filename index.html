@@ -205,7 +205,7 @@ function HomeScreen({sessions, nav, openSession}) {
             {new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}
           </div>
           <div style={{fontWeight:700,letterSpacing:'-0.02em',lineHeight:1.05,fontSize:24}}>
-            Bonsoir, <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:31}}>Ana</span>
+            Good evening, <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:31}}>Ana</span>
           </div>
         </div>
         <div style={{width:40,height:40,borderRadius:20,background:C.cardHi,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
@@ -250,7 +250,7 @@ function HomeScreen({sessions, nav, openSession}) {
             </svg>
             <div style={{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
               <div style={{fontSize:9,fontFamily:F.mono,color:C.dim,letterSpacing:1,textTransform:'uppercase'}}>Level</div>
-              <div style={{fontFamily:F.serif,fontStyle:'italic',fontSize:22,fontWeight:500,marginTop:-2}}>Avancé</div>
+              <div style={{fontFamily:F.serif,fontStyle:'italic',fontSize:22,fontWeight:500,marginTop:-2}}>Advanced</div>
             </div>
           </div>
         </div>
@@ -333,29 +333,35 @@ const EXERCISES = [
   {id:'attitude',        label:'Attitude',       label_pt:'Attitude'},
 ];
 
-function UploadScreen({sessions, nav, openSession, onDone, token}) {
+function UploadScreen({sessions, nav, openSession, onDone}) {
   const [step, setStep]         = useState(1); // 1=choose exercise, 2=upload video
   const [file, setFile]         = useState(null);
   const [busy, setBusy]         = useState(false);
   const [prog, setProg]         = useState(0);
   const [msg,  setMsg]          = useState('');
+  const [error, setError]       = useState('');
   const [exercise, setExercise] = useState(null);
   const ref = useRef();
   const HUES = ['pink','purple','mix'];
-  const STEPS = [[10,'A carregar vídeo…'],[35,'A extrair landmarks…'],[65,'A analisar movimento…'],[90,'A gerar relatório…']];
+  const STEPS = [[10,'Uploading video…'],[35,'Extracting landmarks…'],[65,'Analysing movement…'],[90,'Generating report…']];
 
   async function run() {
     if(!file||busy||!exercise) return;
-    setBusy(true); setProg(10); setMsg(STEPS[0][1]);
+    setBusy(true); setError(''); setProg(10); setMsg(STEPS[0][1]);
     let i=0; const tick=setInterval(()=>{i=Math.min(i+1,3);setProg(STEPS[i][0]);setMsg(STEPS[i][1]);},2600);
     try {
       const fd=new FormData(); fd.append('video',file); fd.append('exercise', exercise);
-      const headers = token ? {'Authorization':`Bearer ${token}`} : {};
-      const r=await fetch('/analyse',{method:'POST',body:fd,headers});
-      const d=await r.json();
-      clearInterval(tick); setProg(100); setMsg('Pronto.');
-      if(d.error){alert(d.error);}else{onDone(d);}
-    } catch(e){clearInterval(tick);alert('Upload falhou: '+e.message);}
+      const r=await fetch('/analyse',{method:'POST',body:fd});
+      let d=null; try{d=await r.json();}catch{}
+      clearInterval(tick);
+      if(!r.ok || !d || d.error){
+        setProg(0); setMsg('');
+        setError((d&&d.error ? d.error+(d.detail?` — ${d.detail}`:'') : `Server error (${r.status}). Please try again.`));
+      } else {
+        setProg(100); setMsg('Done.');
+        onDone(d);
+      }
+    } catch(e){clearInterval(tick);setProg(0);setMsg('');setError('Upload failed: '+e.message);}
     finally{setBusy(false);}
   }
 
@@ -369,24 +375,24 @@ function UploadScreen({sessions, nav, openSession, onDone, token}) {
     <StatusBar/>
     <div style={{padding:'8px 20px 60px'}}>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8,marginBottom:28}}>
-        <button onClick={()=>nav('home')} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>Cancelar</button>
-        <div style={{fontSize:14,fontWeight:600}}>Nova sessão</div>
+        <button onClick={()=>nav('home')} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>Cancel</button>
+        <div style={{fontSize:14,fontWeight:600}}>New session</div>
         <div style={{width:60}}/>
       </div>
 
       {/* Step indicator */}
       <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:24}}>
         <div style={{width:24,height:24,borderRadius:'50%',background:C.grad,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700}}>1</div>
-        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Escolhe o exercício</div>
+        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Choose exercise</div>
         <div style={{flex:1,height:1,background:C.border,margin:'0 4px'}}/>
         <div style={{width:24,height:24,borderRadius:'50%',background:C.card,border:`1px solid ${C.border}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700,color:C.dim}}>2</div>
         <div style={{fontSize:12,color:C.dim}}>Vídeo</div>
       </div>
 
       <h1 style={{fontWeight:700,letterSpacing:'-0.025em',margin:'0 0 6px',lineHeight:1.05,fontSize:26}}>
-        Que exercício <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>praticaste</span>?
+        Which exercise did you <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>practise</span>?
       </h1>
-      <div style={{fontSize:13,color:C.dim,marginBottom:24}}>Seleciona antes de carregar o vídeo.</div>
+      <div style={{fontSize:13,color:C.dim,marginBottom:24}}>Select before uploading the video.</div>
 
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
         {EXERCISES.map(ex=>(
@@ -414,8 +420,8 @@ function UploadScreen({sessions, nav, openSession, onDone, token}) {
 
       {/* Header */}
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8,marginBottom:28}}>
-        <button onClick={()=>{setStep(1);setFile(null);}} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>← Voltar</button>
-        <div style={{fontSize:14,fontWeight:600}}>Nova sessão</div>
+        <button onClick={()=>{setStep(1);setFile(null);}} style={{background:'transparent',border:'none',color:C.dim,cursor:'pointer',fontSize:14,fontFamily:F.body,padding:0}}>← Back</button>
+        <div style={{fontSize:14,fontWeight:600}}>New session</div>
         <div style={{width:60}}/>
       </div>
 
@@ -425,18 +431,18 @@ function UploadScreen({sessions, nav, openSession, onDone, token}) {
         <div style={{fontSize:12,color:C.dim}}>{exLabel}</div>
         <div style={{flex:1,height:1,background:C.grad,margin:'0 4px'}}/>
         <div style={{width:24,height:24,borderRadius:'50%',background:C.grad,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700}}>2</div>
-        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Carrega o vídeo</div>
+        <div style={{fontSize:12,color:C.text,fontWeight:600}}>Upload video</div>
       </div>
 
       <h1 style={{fontWeight:700,letterSpacing:'-0.025em',margin:'0 0 24px',lineHeight:1.05,fontSize:26}}>
-        Mostra o teu <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>movimento</span>.
+        Show your <span style={{fontFamily:F.serif,fontStyle:'italic',fontWeight:500,fontSize:36}}>movement</span>.
       </h1>
 
       {/* Upload tile */}
       <div onClick={()=>!busy&&ref.current?.click()} style={{borderRadius:20,padding:22,background:file?'rgba(78,201,148,0.07)':C.card,border:`1.5px solid ${file?'rgba(78,201,148,0.35)':'rgba(123,110,246,0.25)'}`,display:'flex',alignItems:'center',gap:16,cursor:'pointer',marginBottom:16,transition:'all 0.2s'}}>
         <div style={{width:48,height:48,borderRadius:14,background:C.accent,border:`1px solid rgba(123,110,246,0.3)`,flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center'}}>{Ico.gallery(24,C.purple)}</div>
         <div>
-          <div style={{fontSize:file?14:16,fontWeight:600,letterSpacing:'-0.01em',marginBottom:3,wordBreak:'break-all'}}>{file?file.name.slice(0,28)+'…':'Escolher da biblioteca'}</div>
+          <div style={{fontSize:file?14:16,fontWeight:600,letterSpacing:'-0.01em',marginBottom:3,wordBreak:'break-all'}}>{file?file.name.slice(0,28)+'…':'Choose from library'}</div>
           <div style={{fontSize:11,color:C.dim,fontFamily:F.mono}}>{file?`${(file.size/1024/1024).toFixed(1)} MB`:'MP4 · MOV · max 500MB'}</div>
         </div>
       </div>
@@ -445,7 +451,7 @@ function UploadScreen({sessions, nav, openSession, onDone, token}) {
       {/* Analyse button */}
       {file && !busy && (
         <button onClick={run} style={{width:'100%',padding:16,border:'none',borderRadius:14,background:C.grad,color:'#fff',fontFamily:F.body,fontSize:15,fontWeight:600,letterSpacing:0.2,cursor:'pointer',marginBottom:20}}>
-          Analisar {exLabel}
+          Analyse {exLabel}
         </button>
       )}
 
@@ -459,11 +465,16 @@ function UploadScreen({sessions, nav, openSession, onDone, token}) {
         </div>
       )}
 
+      {/* Error */}
+      {error && (
+        <div style={{marginBottom:16,padding:'12px 14px',borderRadius:12,background:'rgba(255,107,107,0.1)',border:'1px solid rgba(255,107,107,0.3)',color:'#ff6b6b',fontSize:13,lineHeight:1.4}}>{error}</div>
+      )}
+
       {/* Tip */}
       <div style={{marginTop:8,padding:'12px 14px',borderRadius:16,background:'rgba(91,63,232,0.08)',border:'1px solid rgba(91,63,232,0.2)',display:'flex',alignItems:'flex-start',gap:10}}>
         <div style={{marginTop:1}}>{Ico.bolt(14,C.pink)}</div>
         <div style={{fontSize:12,color:'rgba(255,255,255,0.75)',lineHeight:1.4}}>
-          <span style={{color:C.text,fontWeight:600}}>Boa iluminação</span> melhora a precisão. Enquadra o corpo inteiro — cabeça aos pés.
+          <span style={{color:C.text,fontWeight:600}}>Good lighting</span> improves accuracy. Frame your whole body — head to feet.
         </div>
       </div>
     </div>
@@ -736,8 +747,7 @@ function AnalysisScreen({report, onBack}) {
                   <span style={{fontFamily:F.mono,fontSize:12,fontWeight:600,letterSpacing:'-0.02em',color:C.dim,marginLeft:'auto'}}>{cur.t}</span>
                 </div>
                 <div style={{fontSize:11,color:C.dim,fontFamily:F.mono,letterSpacing:0.6,textTransform:'uppercase',marginBottom:6}}>{cur.body}</div>
-                <div style={{fontSize:17,lineHeight:1.35,fontWeight:500,letterSpacing:'-0.01em',marginBottom:cur.pt?6:14,textDecoration:isDone?'line-through':'none',textDecorationColor:'rgba(255,255,255,0.3)'}}>{cur.en}</div>
-                {cur.pt&&<div style={{fontSize:13,color:C.dim,fontStyle:'italic',lineHeight:1.35,marginBottom:14}}>{cur.pt}</div>}
+                <div style={{fontSize:17,lineHeight:1.35,fontWeight:500,letterSpacing:'-0.01em',marginBottom:14,textDecoration:isDone?'line-through':'none',textDecorationColor:'rgba(255,255,255,0.3)'}}>{cur.en}</div>
               </div>
             </div>
             <div style={{display:'flex',gap:8}}>
@@ -885,101 +895,32 @@ function ProgressScreen({sessions, nav}) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// LOGIN SCREEN
-// ═══════════════════════════════════════════════════════════════
-function LoginScreen({onLogin}) {
-  const [mode,     setMode]    = useState('login'); // 'login' | 'register'
-  const [email,    setEmail]   = useState('');
-  const [password, setPassword]= useState('');
-  const [name,     setName]    = useState('');
-  const [busy,     setBusy]    = useState(false);
-  const [err,      setErr]     = useState('');
-
-  async function submit(e) {
-    e.preventDefault();
-    const demoUser = {id:'demo', email: email||'demo@releve.app', name: name||'Bailarina', role:'student'};
-    localStorage.setItem('releve_user', JSON.stringify(demoUser));
-    onLogin(demoUser, null);
-  }
-
-  return <div style={{width:'100%',minHeight:'100vh',background:C.bg,color:C.text,fontFamily:F.body,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 28px'}}>
-    <div style={{marginBottom:36}}>
-      <div style={{fontFamily:F.serif,fontStyle:'italic',fontSize:42,fontWeight:500,letterSpacing:'-0.02em',marginBottom:4}}>(r)elevē</div>
-      <div style={{fontSize:13,color:C.dim}}>{mode==='login'?'Bem-vinda de volta.':'Cria a tua conta.'}</div>
-    </div>
-
-    <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:12}}>
-      {mode==='register' &&
-        <input value={name} onChange={e=>setName(e.target.value)} placeholder="Nome"
-          style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
-      }
-
-      <input value={email} onChange={e=>setEmail(e.target.value)} type="email" placeholder="Email"
-        style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
-      <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password"
-        style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:'14px 16px',color:C.text,fontFamily:F.body,fontSize:15,outline:'none'}}/>
-
-      {err && <div style={{fontSize:12,color:'#ff6b6b',padding:'8px 12px',background:'rgba(255,107,107,0.1)',borderRadius:8}}>{err}</div>}
-
-      <button type="submit" disabled={busy} style={{
-        padding:16,borderRadius:14,border:'none',background:C.grad,color:'#fff',
-        fontFamily:F.body,fontSize:15,fontWeight:600,cursor:'pointer',marginTop:4,
-        opacity:busy?0.7:1,
-      }}>
-        {busy?'...':(mode==='login'?'Entrar':'Criar conta')}
-      </button>
-    </form>
-
-    <button onClick={()=>{setMode(m=>m==='login'?'register':'login');setErr('');}} style={{
-      background:'none',border:'none',color:C.dim,fontFamily:F.body,fontSize:13,
-      cursor:'pointer',marginTop:20,textAlign:'center',
-    }}>
-      {mode==='login'?'Não tens conta? Regista-te →':'Já tens conta? Entra →'}
-    </button>
-  </div>;
-}
-
-// ═══════════════════════════════════════════════════════════════
 // APP ROOT
 // ═══════════════════════════════════════════════════════════════
 function App() {
   const [screen,   setScreen]  = useState('home');
   const [sessions, setSessions]= useState([]);
   const [report,   setReport]  = useState(null);
-  const [user,     setUser]    = useState(()=>{
-    try{return JSON.parse(localStorage.getItem('releve_user'));}catch{return null;}
-  });
-  const [token,    setToken]   = useState(()=>localStorage.getItem('releve_token'));
 
-  const authHeaders = token ? {'Authorization':`Bearer ${token}`} : {};
-
-  useEffect(()=>{if(user&&token)load();},[user,token]);
+  useEffect(()=>{load();},[]);
 
   async function load(){
     try{
-      const r=await fetch('/api/sessions',{headers:authHeaders});
+      const r=await fetch('/api/sessions');
+      if(!r.ok) return;
       const d=await r.json();
       setSessions(Array.isArray(d)?d:[]);
     }catch(e){console.error(e);}
-  }
-
-  function handleLogin(u, t){setUser(u);setToken(t);}
-  function handleLogout(){
-    localStorage.removeItem('releve_token');
-    localStorage.removeItem('releve_user');
-    setUser(null);setToken(null);setSessions([]);
   }
 
   function openSession(s){setReport(s.report||s);setScreen('analysis');}
   function handleDone(r){load();setReport(r);setScreen('analysis');}
   function nav(s){if(s==='home'||s==='upload'||s==='progress')setScreen(s);}
 
-  if(!user) return <LoginScreen onLogin={handleLogin}/>;
-
   if(screen==='analysis'&&report) return <AnalysisScreen report={report} onBack={()=>setScreen('home')}/>;
-  if(screen==='upload')           return <UploadScreen sessions={sessions} nav={nav} openSession={openSession} onDone={handleDone} token={token}/>;
+  if(screen==='upload')           return <UploadScreen sessions={sessions} nav={nav} openSession={openSession} onDone={handleDone}/>;
   if(screen==='progress')         return <ProgressScreen sessions={sessions} nav={nav}/>;
-  return <HomeScreen sessions={sessions} nav={nav} openSession={openSession} user={user} onLogout={handleLogout}/>;
+  return <HomeScreen sessions={sessions} nav={nav} openSession={openSession}/>;
 }
 
 ReactDOM.createRoot(document.getElementById('shell')).render(<App/>);

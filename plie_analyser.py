@@ -118,6 +118,34 @@ def _visibility_ok(frame, trigger_id):
     return True
 
 
+# ── PRESENCE CONFIDENCE ───────────────────────────────────────────────
+
+def _presence_confidence(frames):
+    """
+    Detect actual plié movement: average knee angle must dip well below
+    the standing baseline (both knees bending) and spend real time there.
+    Mirrors the presence-detection pattern used by the other analysers.
+    """
+    if not frames:
+        return 0.0
+    angles = []
+    for f in frames:
+        m = f.get("measurements", {})
+        valid = [a for a in (m.get("left_knee_angle"), m.get("right_knee_angle")) if a is not None]
+        if valid:
+            angles.append(sum(valid) / len(valid))
+    if not angles:
+        return 0.0
+    baseline = sorted(angles)[int(len(angles) * 0.7)]  # standing reference
+    depth = baseline - min(angles)
+    if depth < 8:  # less than ~8° of knee bend — not a plié
+        return 0.0
+    active = sum(1 for a in angles if a < baseline - depth * 0.35)
+    depth_conf = min(1.0, depth / 20.0)
+    active_conf = min(1.0, 4.0 * active / max(1, len(angles)))
+    return depth_conf * active_conf
+
+
 # ── PHASE DETECTION ───────────────────────────────────────────────────
 
 def detect_phases(frames):
@@ -583,6 +611,26 @@ def analyse_plie(pose_data):
 
     # 1) Smooth noisy trajectories before phase/trigger evaluation.
     frames = smooth_frames(frames, alpha=0.15)
+
+    presence_conf = _presence_confidence(frames)
+    movement_detected = presence_conf >= 0.20
+
+    if not movement_detected:
+        return {
+            "exercise": "Plié",
+            "exercise_id": "plie",
+            "movement_detected": False,
+            "presence_confidence": round(presence_conf, 3),
+            "score": 100,
+            "grade": "Not Detected",
+            "corrections": [],
+            "correction_timeline": [],
+            "phases_summary": {},
+            "total_frames_analysed": len(frames),
+            "duration_seconds": round(frames[-1]["timestamp_ms"] / 1000, 1) if frames else 0,
+            "fps": fps,
+        }
+
     phases = detect_phases(frames)
 
     # 2) Temporal filters per trigger: N-of-M + hysteresis.
@@ -639,6 +687,9 @@ def analyse_plie(pose_data):
 
     return {
         "exercise": "Plié",
+        "exercise_id": "plie",
+        "movement_detected": True,
+        "presence_confidence": round(presence_conf, 3),
         "score": score,
         "grade": grade,
         "corrections": corrections,

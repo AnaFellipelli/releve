@@ -27,8 +27,7 @@ from botocore.config import Config
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
-from flask import Flask, request, jsonify, send_from_directory, g
-from functools import wraps
+from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 
 from pose_extractor import extract_frames
@@ -48,7 +47,6 @@ from echappe_analyser import analyse_echappe
 from assemble_analyser import analyse_assemble
 from frappe_analyser import analyse_frappe
 from attitude_analyser import analyse_attitude
-from exercise_analyser import analyse_exercise  # legacy fallback
 
 load_dotenv()
 
@@ -63,24 +61,33 @@ EXERCISES = {"plie", "battement_tendu", "arabesque", "port_de_bras",
 BASE_DIR   = Path(__file__).parent
 UPLOADS_DIR = BASE_DIR / "uploaded_videos"
 UPLOADS_DIR.mkdir(exist_ok=True)
+LOCAL_SESSIONS_FILE = BASE_DIR / "analysis_sessions.json"
 
 # ── Supabase ──────────────────────────────────────────────────────────
-_supabase: Client = create_client(
-    os.environ["SUPABASE_URL"],
-    os.environ["SUPABASE_SERVICE_KEY"],
+_supabase_url = os.environ.get("SUPABASE_URL", "")
+_supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", "")
+_supabase = (
+    create_client(_supabase_url, _supabase_key)
+    if _supabase_url and _supabase_key
+    else None
 )
 
 # ── Cloudflare R2 ─────────────────────────────────────────────────────
-_r2 = boto3.client(
-    "s3",
-    endpoint_url=f'https://{os.environ["R2_ACCOUNT_ID"]}.r2.cloudflarestorage.com',
-    aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
-    aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
-    config=Config(signature_version="s3v4"),
-    region_name="auto",
+_r2_account_id = os.environ.get("R2_ACCOUNT_ID", "")
+_r2 = (
+    boto3.client(
+        "s3",
+        endpoint_url=f'https://{_r2_account_id}.r2.cloudflarestorage.com',
+        aws_access_key_id=os.environ.get("R2_ACCESS_KEY_ID", ""),
+        aws_secret_access_key=os.environ.get("R2_SECRET_ACCESS_KEY", ""),
+        config=Config(signature_version="s3v4"),
+        region_name="auto",
+    )
+    if _r2_account_id
+    else None
 )
-R2_BUCKET     = os.environ["R2_BUCKET_NAME"]
-R2_PUBLIC_URL = os.environ["R2_PUBLIC_URL"].rstrip("/")
+R2_BUCKET     = os.environ.get("R2_BUCKET_NAME", "")
+R2_PUBLIC_URL = os.environ.get("R2_PUBLIC_URL", "").rstrip("/")
 
 
 # ── Helpers ───────────────────────────────────────────────────────────
@@ -92,67 +99,75 @@ def _grade_from_score(score):
     return "Significant Corrections"
 
 
+def _local_video_url(stored_filename: str) -> str:
+    return f"http://localhost:5000/videos/{stored_filename}"
+
+
 def _upload_video(local_path: Path, stored_filename: str) -> str:
-    ext = stored_filename.rsplit(".", 1)[-1].lower()
-    content_type = "video/x-matroska" if ext == "mkv" else f"video/{ext}"
-    with open(local_path, "rb") as f:
-        _r2.upload_fileobj(
-            f, R2_BUCKET, stored_filename,
-            ExtraArgs={"ContentType": content_type},
-        )
-    return f"{R2_PUBLIC_URL}/{stored_filename}"
+    if not _r2:
+        return _local_video_url(stored_filename)
+    try:
+        ext = stored_filename.rsplit(".", 1)[-1].lower()
+        content_type = "video/x-matroska" if ext == "mkv" else f"video/{ext}"
+        with open(local_path, "rb") as f:
+            _r2.upload_fileobj(
+                f, R2_BUCKET, stored_filename,
+                ExtraArgs={"ContentType": content_type},
+            )
+        return f"{R2_PUBLIC_URL}/{stored_filename}"
+    except Exception as e:
+        print(f"[server] R2 upload failed ({e}), serving video locally")
+        return _local_video_url(stored_filename)
+
+
+def _save_session_local(session: dict):
+    try:
+        data = json.loads(LOCAL_SESSIONS_FILE.read_text()) if LOCAL_SESSIONS_FILE.exists() else []
+    except Exception:
+        data = []
+    data = [s for s in data if s.get("id") != session["id"]]
+    data.insert(0, session)
+    LOCAL_SESSIONS_FILE.write_text(json.dumps(data, indent=2, default=str))
 
 
 def _save_session(session: dict):
-    _supabase.table("sessions").upsert({
-        "id":                session["id"],
-        "created_at":        session["created_at"],
-        "video_filename":    session["video_filename"],
-        "video_url":         session["video_url"],
-        "exercise_id":       session["exercise_id"],
-        "exercise":          session["exercise"],
-        "score":             session["score"],
-        "grade":             session["grade"],
-        "corrections_count": session["corrections_count"],
-        "duration_seconds":  session["duration_seconds"],
-        "report":            session["report"],
-    }).execute()
-
-
-def _load_sessions(user_id=None):
-    q = _supabase.table("sessions").select("*").order("created_at", desc=True)
-    if user_id:
-        q = q.eq("user_id", user_id)
-    return q.execute().data or []
-
-
-# ── Auth helpers ──────────────────────────────────────────────────────
-
-def _get_token():
-    auth = request.headers.get("Authorization", "")
-    if auth.startswith("Bearer "):
-        return auth[7:]
-    return None
-
-def _current_user():
-    token = _get_token()
-    if not token:
-        return None
+    if not _supabase:
+        _save_session_local(session)
+        return
     try:
-        result = _supabase.auth.get_user(token)
-        return result.user
-    except Exception:
-        return None
+        _supabase.table("sessions").upsert({
+            "id":                session["id"],
+            "created_at":        session["created_at"],
+            "video_filename":    session["video_filename"],
+            "video_url":         session["video_url"],
+            "exercise_id":       session["exercise_id"],
+            "exercise":          session["exercise"],
+            "score":             session["score"],
+            "grade":             session["grade"],
+            "corrections_count": session["corrections_count"],
+            "duration_seconds":  session["duration_seconds"],
+            "report":            session["report"],
+        }).execute()
+    except Exception as e:
+        print(f"[server] Supabase save failed ({e}), saving locally")
+        _save_session_local(session)
 
-def login_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        user = _current_user()
-        if not user:
-            return jsonify({"error": "Não autenticado."}), 401
-        g.user = user
-        return f(*args, **kwargs)
-    return decorated
+
+def _load_sessions():
+    if not _supabase:
+        try:
+            return json.loads(LOCAL_SESSIONS_FILE.read_text()) if LOCAL_SESSIONS_FILE.exists() else []
+        except Exception:
+            return []
+    try:
+        q = _supabase.table("sessions").select("*").order("created_at", desc=True)
+        return q.execute().data or []
+    except Exception as e:
+        print(f"[server] Supabase load failed ({e}), reading local sessions")
+        try:
+            return json.loads(LOCAL_SESSIONS_FILE.read_text()) if LOCAL_SESSIONS_FILE.exists() else []
+        except Exception:
+            return []
 
 
 def _merge_reports(reports):
@@ -162,7 +177,7 @@ def _merge_reports(reports):
     for exercise_id, report in reports.items():
         if report.get("error"):
             continue
-        if exercise_id != "plie" and report.get("movement_detected") is False:
+        if report.get("movement_detected") is False:
             continue
         scores.append(report.get("score", 0))
         durations.append(report.get("duration_seconds", 0))
@@ -235,74 +250,6 @@ def health():
     return jsonify({"status": "ok", "version": "2.0.0"})
 
 
-# ── AUTH ROUTES ───────────────────────────────────────────────────────
-
-@app.route("/auth/register", methods=["POST"])
-def register():
-    data = request.get_json()
-    email    = (data.get("email") or "").strip()
-    password = (data.get("password") or "").strip()
-    name     = (data.get("name") or "").strip()
-    role     = (data.get("role") or "student").strip()
-
-    if not email or not password:
-        return jsonify({"error": "Email e password obrigatórios."}), 400
-    if role not in ("teacher", "student"):
-        return jsonify({"error": "Role inválido."}), 400
-
-    try:
-        res = _supabase.auth.sign_up({"email": email, "password": password})
-        if not res.user:
-            return jsonify({"error": "Erro ao criar conta."}), 400
-
-        _supabase.table("users").upsert({
-            "id":    str(res.user.id),
-            "email": email,
-            "name":  name,
-            "role":  role,
-        }).execute()
-
-        return jsonify({
-            "user": {"id": str(res.user.id), "email": email, "name": name, "role": role},
-            "access_token": res.session.access_token if res.session else None,
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
-
-
-@app.route("/auth/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    email    = (data.get("email") or "").strip()
-    password = (data.get("password") or "").strip()
-
-    if not email or not password:
-        return jsonify({"error": "Email e password obrigatórios."}), 400
-
-    try:
-        res = _supabase.auth.sign_in_with_password({"email": email, "password": password})
-        if not res.user or not res.session:
-            return jsonify({"error": "Credenciais inválidas."}), 401
-
-        # get profile from users table
-        profile = _supabase.table("users").select("*").eq("id", str(res.user.id)).maybe_single().execute()
-        user_data = profile.data or {"id": str(res.user.id), "email": email, "name": "", "role": "student"}
-
-        return jsonify({
-            "user": user_data,
-            "access_token": res.session.access_token,
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 401
-
-
-@app.route("/auth/me")
-@login_required
-def me():
-    profile = _supabase.table("users").select("*").eq("id", str(g.user.id)).maybe_single().execute()
-    return jsonify(profile.data or {})
-
-
 @app.route("/analyse", methods=["POST"])
 def analyse():
     if "video" not in request.files:
@@ -338,21 +285,20 @@ def analyse():
 
         if exercise_id == "all":
             print("[analyse] Running analysis for all exercises...")
-            reports = {}
-            for ex in sorted(EXERCISES):
-                fn = EXERCISE_ANALYSERS.get(ex)
-                reports[ex] = fn(pose_data) if fn else analyse_exercise(pose_data, ex)
+            reports = {ex: EXERCISE_ANALYSERS[ex](pose_data) for ex in sorted(EXERCISES)}
             report = _merge_reports(reports)
         else:
             print(f"[analyse] Running {exercise_id}...")
-            fn = EXERCISE_ANALYSERS.get(exercise_id)
-            report = fn(pose_data) if fn else analyse_exercise(pose_data, exercise_id)
+            report = EXERCISE_ANALYSERS[exercise_id](pose_data)
 
         print(f"[analyse] Score: {report.get('score')} | {len(report.get('corrections', []))} corrections")
 
         print("[analyse] Uploading to Cloudflare R2...")
         video_url = _upload_video(stored_path, stored_filename)
-        stored_path.unlink(missing_ok=True)
+        if not _r2 or video_url.startswith("http://localhost"):
+            print("[analyse] Keeping video locally for playback")
+        else:
+            stored_path.unlink(missing_ok=True)
 
         report.update({
             "video_filename":   file.filename,
@@ -362,11 +308,9 @@ def analyse():
             "video_duration_s": round(pose_data["total_frames"] / pose_data["fps"], 1),
         })
 
-        user = _current_user()
         _save_session({
             "id":                session_id,
             "created_at":        datetime.now(timezone.utc).isoformat(),
-            "user_id":           str(user.id) if user else None,
             "video_filename":    file.filename,
             "video_url":         video_url,
             "exercise_id":       report.get("exercise_id", exercise_id),
@@ -387,8 +331,12 @@ def analyse():
 
 @app.route("/api/sessions")
 def sessions_list():
-    user = _current_user()
-    return jsonify(_load_sessions(user_id=str(user.id) if user else None))
+    return jsonify(_load_sessions())
+
+
+@app.route("/videos/<path:filename>")
+def serve_video(filename):
+    return send_from_directory(UPLOADS_DIR, filename)
 
 
 @app.route("/")

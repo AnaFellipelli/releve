@@ -81,10 +81,10 @@ def _presence_confidence(frames):
     baseline = sorted(offs)[int(len(offs) * 0.3)]
     peak = max(offs)
     extension = peak - baseline
-    if extension < 0.25:
+    if extension < 0.10:
         return 0.0
-    active = sum(1 for v in offs if v > baseline + extension * 0.5)
-    return min(1.0, active / max(1, len(offs)))
+    active = sum(1 for v in offs if v > baseline + extension * 0.35)
+    return min(1.0, 4.0 * active / max(1, len(offs)))
 
 
 # ── VISIBILITY GATING ──────────────────────────────────────────────────
@@ -211,6 +211,9 @@ N_OF_M_CONFIG = {
 HYSTERESIS_CONFIG = {
     "tendu_001": (5.0, 2.0),  # signal: 180 - knee_angle; matches _MAX_KNEE_BEND = 5
     "tendu_002": (_MAX_HIP_DIFF, max(0.5, _MAX_HIP_DIFF - 1.0)),
+    # tendu_003: inverted signal — fires when offset diff LOW (poor articulation)
+    # signal = 0.06 - abs(diff); on=0.03 (diff<0.03), off=0.01 (diff>0.05)
+    "tendu_003": (0.03, 0.01),
     "tendu_004": (_MAX_LEAN, max(1.0, _MAX_LEAN - 1.5)),
     "tendu_005": (12.0, 7.0), "tendu_006": (8.0, 5.0), "tendu_007": (10.0, 6.0),
 }
@@ -234,6 +237,10 @@ def _trigger_signal(trigger_id, m, phase):
         )
     if trigger_id == "tendu_002" and phase in ("rising", "peak"):
         return m.get("hip_height_diff_pct", 0)
+    if trigger_id == "tendu_003" and phase == "peak":
+        # Invert: high signal = poor articulation (diff near zero)
+        diff = abs(m.get("left_knee_toe_offset_norm", 0) - m.get("right_knee_toe_offset_norm", 0))
+        return max(0.0, 0.06 - diff)
     if trigger_id == "tendu_004" and phase in ("rising", "peak"):
         return m.get("trunk_lean_angle", 0)
     if trigger_id == "tendu_005" and phase in ("rising", "peak"):
@@ -288,7 +295,7 @@ def analyse_tendu(pose_data):
 
     frames = smooth_frames(frames, alpha=0.15)
     presence_conf = _presence_confidence(frames)
-    movement_detected = presence_conf >= 0.55
+    movement_detected = presence_conf >= 0.20
 
     if not movement_detected:
         return {
